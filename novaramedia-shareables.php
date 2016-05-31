@@ -13,7 +13,7 @@
  * @package           Novaramedia_Shareables
  *
  * @wordpress-plugin
- * Novaramedia Shareables:       WordPress Plugin Boilerplate
+ * Plugin Name:       Novaramedia Shareable
  * Plugin URI:        http://example.com/novaramedia-shareables-uri/
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0
