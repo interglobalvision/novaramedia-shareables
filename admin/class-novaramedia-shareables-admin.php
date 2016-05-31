@@ -100,4 +100,37 @@ class Novaramedia_Shareables_Admin {
 
 	}
 
+  public function add_admin_menu() {
+
+    // Add top level menu
+    add_menu_page(
+      null,
+      'Shareables',
+      'manage_options',
+      'novaramedia-shareables',
+      array( $this, 'shareables_settings_page' )
+    );
+
+    // Add Wire Shareable page
+    add_submenu_page(
+      'novaramedia-shareables',
+      'Wire Shareable',
+      'Wire',
+      'manage_options',
+      'wire-sharable',
+      array( $this, 'wire_shareable_page' )
+    );
+
+
+  }
+
+  public function shareables_settings_page() {
+    include_once( plugin_dir_path( __FILE__ ) . 'partials/shareables-settings-admin-display.php' );
+  }
+
+  public function wire_shareable_page() {
+    include_once( plugin_dir_path( __FILE__ ) . 'partials/wire-sharable-admin-display.php' );
+  }
+
+
 }
