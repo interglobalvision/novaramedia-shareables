@@ -17,4 +17,8 @@
 
 <div class="wrap">
   <h2>Wire Shareable</h2>
+
+  <div id="canvas-container">
+  </div>
+  
 </div>

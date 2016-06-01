@@ -112,7 +112,7 @@ class Novaramedia_Shareables_Admin {
     );
 
     // Add Wire Shareable page
-    add_submenu_page(
+    $wire_page = add_submenu_page(
       'novaramedia-shareables',
       'Wire Shareable',
       'Wire',
@@ -121,7 +121,16 @@ class Novaramedia_Shareables_Admin {
       array( $this, 'wire_shareable_page' )
     );
 
+    // Enqueue files for Wire Page
+		add_action( 'load-' . $wire_page, array( $this, 'enqueue_shareable_scripts') );
 
+
+  }
+
+  public function enqueue_shareable_scripts() {
+    // Main Script
+		wp_enqueue_script( $this->novaramedia_shareables, plugin_dir_url( __FILE__ ) . 'js/easeljs.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->novaramedia_shareables, plugin_dir_url( __FILE__ ) . 'js/novaramedia-shareables.js', array( 'jquery' ), $this->version, false );
   }
 
   public function shareables_settings_page() {
