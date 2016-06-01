@@ -28,8 +28,8 @@ function errorNotify(error){
 
 gulp.task('javascript', function() {
   var paths = [
-    'admin/js/**/*.es6.js',
-    'public/js/**/*.es6.js',
+    'admin/js/src/*.js',
+    'public/js/src/*.js',
   ];
   return gulp.src(paths, { base: './'} )
   .pipe(sourcemaps.init())
@@ -42,13 +42,13 @@ gulp.task('javascript', function() {
   }))
   .on('error', console.error.bind(console))
   .pipe(ext_replace('.js', '.es6.js'))
-  .pipe(gulp.dest('./'))
+  .pipe(gulp.dest('./../'))
   .pipe(uglify())
   .on('error', errorNotify)
   .pipe(rename({suffix: '.min'}))
   .pipe(sourcemaps.write('/'))
   .on('error', errorNotify)
-  .pipe(gulp.dest('./'))
+  .pipe(gulp.dest('./../'))
   .pipe(notify({ message: 'Javascript task complete' }));
 });
 
@@ -89,8 +89,8 @@ gulp.task('images', function () {
 */
 
 gulp.task('watch', function() {
-  gulp.watch(['**/*.es6.js'], ['javascript']);
-  gulp.watch(['**/*.styl'], ['style']);
+  gulp.watch(['admin/js/src/*.js', 'public/js/src/*.js'], ['javascript']);
+  gulp.watch(['admin/css/*.styl', 'public/css/*styl'], ['style']);
 });
 
 gulp.task('default', ['watch']);
