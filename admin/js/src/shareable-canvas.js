@@ -1,6 +1,5 @@
 /* jshint browser: true, devel: true, indent: 2, curly: true, eqeqeq: true, futurehostile: true, latedef: true, undef: true, unused: true, esversion: 6 */
-/* global, $, document, jQuery */
-
+/* global $, document, Modernizr */
 class ShareableCanvas {
   // This is the Constructor
   // it run when an instance is created

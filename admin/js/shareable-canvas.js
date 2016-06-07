@@ -1,0 +1,307 @@
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/* jshint browser: true, devel: true, indent: 2, curly: true, eqeqeq: true, futurehostile: true, latedef: true, undef: true, unused: true, esversion: 6 */
+/* global $, document, Modernizr */
+
+var ShareableCanvas = function () {
+  // This is the Constructor
+  // it run when an instance is created
+
+  function ShareableCanvas(options) {
+    var _this = this;
+
+    _classCallCheck(this, ShareableCanvas);
+
+    this.initialized = true;
+    this.changed = false;
+
+    this.container = options.container;
+
+    this.canvas = document.getElementById(options.container);
+
+    this.fingers = [];
+    this.stage = new createjs.Stage(this.container);
+
+    //createjs.Ticker.addEventListener('tick', event =>  this.update(event));
+
+    this.stage.addEventListener('mousedown', function (event) {
+      return _this.stageMouseDown(event);
+    });
+    this.stage.addEventListener('pressmove', function (event) {
+      return _this.stagePressMove(event);
+    });
+    this.stage.addEventListener('pressup', function (event) {
+      return _this.stagePressUp(event);
+    });
+
+    //createjs.Ticker.addEventListener('tick', event =>  this.enterFrame(event));
+
+    createjs.Touch.enable(this.stage);
+
+    //this.drawCircle();
+  }
+
+  // store initial touchpoint-position
+
+
+  _createClass(ShareableCanvas, [{
+    key: 'stageMouseDown',
+    value: function stageMouseDown(event) {
+
+      this.fingers[event.pointerID] = {
+        start: { x: event.stageX, y: event.stageY },
+        current: { x: event.stageX, y: event.stageY },
+        old: { x: event.stageX, y: event.stageY }
+      };
+
+      this.calculateActiveFingers();
+
+      this.stage.dispatchEvent('start');
+    }
+
+    // update touchpoint-positions
+
+  }, {
+    key: 'stagePressMove',
+    value: function stagePressMove(event) {
+      var pointerID = event.pointerID;
+
+      this.fingers[pointerID].current.x = event.stageX;
+      this.fingers[pointerID].current.y = event.stageY;
+
+      if (event.localX !== undefined) {
+        this.fingers[pointerID]['local'] = {
+          x: null,
+          y: null
+        };
+
+        this.fingers[pointerID].local.x = event.localX;
+        this.fingers[pointerID].local.y = event.localY;
+      }
+
+      this.calculateActiveFingers();
+
+      this.changed = true;
+      this.update();
+    }
+  }, {
+    key: 'stagePressUp',
+    value: function stagePressUp(event) {
+
+      if (this.fingers[event.pointerID]) {
+        delete this.fingers[event.pointerID];
+      }
+
+      this.calculateActiveFingers();
+      this.stage.dispatchEvent('complete');
+      this.update();
+    }
+  }, {
+    key: 'enterFrame',
+    value: function enterFrame(event) {
+      this.stage.dispatchEvent('update');
+      if (this.changed) {
+        this.changed = false;
+
+        for (var pointerID in self.fingers) {
+          if (self.fingers[pointerID].start) {
+            self.fingers[pointerID].old.x = self.fingers[pointerID].current.x;
+            self.fingers[pointerID].old.y = self.fingers[pointerID].current.y;
+          }
+        }
+      }
+    }
+  }, {
+    key: 'calculateActiveFingers',
+    value: function calculateActiveFingers() {
+      this.activeFingers = 0;
+
+      for (var pointerID in this.fingers) {
+        if (this.fingers[pointerID].start) {
+          this.activeFingers++;
+        }
+      }
+      //console.log('Fingers', this.activeFingers);
+    }
+  }, {
+    key: 'update',
+    value: function update(event) {
+      this.stage.update();
+    }
+  }, {
+    key: 'transform',
+    value: function transform(event) {
+      if (this.activeFingers > 1) {
+        var points = [];
+
+        // extract touchpoints
+        for (var k in this.fingers) {
+          if (this.fingers[k].current) {
+            points.push(this.fingers[k]);
+            if (points.length >= 2) break;
+          }
+        }
+
+        // ---------------------------------------- Rotation
+        // calculate initial angle
+        var point1 = points[0].old;
+        var point2 = points[1].old;
+        var startAngle = Math.atan2(point1.y - point2.y, point1.x - point2.x) * (180 / Math.PI);
+
+        // calculate new angle
+        point1 = points[0].current;
+        point2 = points[1].current;
+        var currentAngle = Math.atan2(point1.y - point2.y, point1.x - point2.x) * (180 / Math.PI);
+
+        var angle = currentAngle - startAngle;
+
+        // i was trying to make it rotate from the center of the fingers as origin
+        /*
+           if( points[0].local !== undefined && points[1].local !== undefined ) {
+        // calculate center point
+        point1 = points[0].local;
+        point2 = points[1].local;
+        console.log('point1', point1);
+        let midPoint = this.getMidPoint(point1, point2);
+        let bounds = event.currentTarget.getBounds();
+        event.currentTarget.regX = bounds.width / 2;//midPoint.x;
+        event.currentTarget.regY = bounds.height / 2;//midPoint.y;
+        //console.log('Mid point', midPoint);
+        }
+        */
+
+        // set rotation based on difference between the two angles
+        event.currentTarget.rotation += angle * 0.02;
+
+        this.stage.dispatchEvent('rotate');
+
+        // ---------------------------------------- Scale
+        var distance = this.getDistance(points[0].current, points[1].current) / this.getDistance(points[0].old, points[1].old);
+        //console.log('Distance', distance);
+
+        if (distance > 1.01 || distance < 0.9) {
+          distance = 1 - distance;
+
+          var scale = event.currentTarget.scaleX * distance * -0.02;
+
+          //console.log('Scale', scale);
+          //console.log('Current Scale', event.currentTarget.scaleX);
+
+          event.currentTarget.scaleX += scale;
+
+          //console.log('Scaling: ' + event.currentTarget.scaleX + '+ (' + (scale-1) + ') = ' + finalScale);
+
+          event.currentTarget.scaleY = event.currentTarget.scaleX;
+
+          this.stage.dispatchEvent('scale');
+        }
+      }
+
+      // ---------------------------------------- Movement
+      var average = { x: 0, y: 0 };
+
+      // caluclate average movement between all points
+      var index = 0;
+      for (var pointerID in this.fingers) {
+        if (this.fingers[pointerID].start) {
+          //console.log('pointerID', pointerID );
+          //console.log('current x', this.fingers[pointerID].current.x );
+          //console.log('old x', this.fingers[pointerID].old.x );
+          average.x += this.fingers[pointerID].current.x - this.fingers[pointerID].old.x;
+          average.y += this.fingers[pointerID].current.y - this.fingers[pointerID].old.y;
+        }
+      }
+
+      average.x /= Math.max(1, this.activeFingers);
+      average.y /= Math.max(1, this.activeFingers);
+
+      // set new positions
+      event.currentTarget.x = event.currentTarget.localX + average.x;
+      event.currentTarget.y = event.currentTarget.localY + average.y;
+
+      this.stage.dispatchEvent('move');
+    }
+  }, {
+    key: 'savePosition',
+    value: function savePosition(event) {
+      // Put current object position
+      event.currentTarget.localX = event.currentTarget.x;
+      event.currentTarget.localY = event.currentTarget.y;
+    }
+  }, {
+    key: 'drawCircle',
+    value: function drawCircle() {
+      var circle = new createjs.Shape();
+
+      circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 50);
+      circle.x = 100;
+      circle.y = 100;
+
+      this.stage.addChild(circle);
+      this.update();
+    }
+  }, {
+    key: 'loadImage',
+    value: function loadImage(path) {
+      var that = this;
+      var image = new Image();
+      image.src = path;
+
+      image.onload = function (event) {
+        var loadedImage = event.target;
+        that.addImage(loadedImage);
+      };
+    }
+  }, {
+    key: 'addImage',
+    value: function addImage(image) {
+      var _this2 = this;
+
+      var that = this;
+      var bitmap = new createjs.Bitmap(image);
+
+      var bounds = bitmap.getBounds();
+      bitmap.regX = bounds.width / 2;
+      bitmap.regY = bounds.height / 2;
+
+      bitmap.addEventListener('mousedown', function (event) {
+        return _this2.savePosition(event);
+      });
+      bitmap.addEventListener('pressmove', function (event) {
+        return _this2.transform(event);
+      });
+
+      this.stage.addChild(bitmap);
+      this.update();
+    }
+  }, {
+    key: 'getDistance',
+    value: function getDistance(p1, p2) {
+      var x = p2.x - p1.x;
+      var y = p2.y - p1.y;
+
+      return Math.sqrt(x * x + y * y);
+    }
+  }, {
+    key: 'getMidPoint',
+    value: function getMidPoint(p1, p2) {
+      var midPoint = {
+        x: null,
+        y: null
+      };
+
+      midPoint.x = p1.x + p2.x / 2;
+      midPoint.y = p1.y + p2.y / 2;
+
+      return midPoint;
+    }
+  }]);
+
+  return ShareableCanvas;
+}();
+
+;
