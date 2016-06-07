@@ -11,7 +11,6 @@ var gulp = require('gulp');
   uglify = require('gulp-uglify'),
   sourcemaps = require('gulp-sourcemaps'),
   babel = require('gulp-babel'),
-  ext_replace = require('gulp-ext-replace'),
 
   cache = require('gulp-cached'),
 
@@ -26,29 +25,51 @@ function errorNotify(error){
 }
 
 
-gulp.task('javascript', function() {
+gulp.task('javascript-check', function() {
   var paths = [
     'admin/js/src/*.js',
     'public/js/src/*.js',
   ];
-  return gulp.src(paths, { base: './'} )
+  return gulp.src(paths)
   .pipe(sourcemaps.init())
   .pipe(jshint())
   .pipe(jshint.reporter('jshint-stylish'))
   .pipe(jscs('.jscsrc'))
   .on('error', errorNotify)
+  .pipe(notify({ message: 'Javascript check complete' }));
+});
+
+gulp.task('admin-javascript', function() {
+  return gulp.src('admin/js/src/*.js')
   .pipe(babel({
     presets: ['es2015']
   }))
   .on('error', console.error.bind(console))
-  .pipe(ext_replace('.js', '.es6.js'))
-  .pipe(gulp.dest('./../'))
+  .pipe(gulp.dest('admin/js/'))
+  .pipe(sourcemaps.init())
   .pipe(uglify())
   .on('error', errorNotify)
   .pipe(rename({suffix: '.min'}))
-  .pipe(sourcemaps.write('/'))
+  .pipe(sourcemaps.write('admin/js/'))
   .on('error', errorNotify)
-  .pipe(gulp.dest('./../'))
+  .pipe(gulp.dest('admin/js/'))
+  .pipe(notify({ message: 'Javascript task complete' }));
+});
+
+gulp.task('public-javascript', function() {
+  return gulp.src('public/js/src/*.js')
+  .pipe(babel({
+    presets: ['es2015']
+  }))
+  .on('error', console.error.bind(console))
+  .pipe(gulp.dest('public/js/'))
+  .pipe(sourcemaps.init())
+  .pipe(uglify())
+  .on('error', errorNotify)
+  .pipe(rename({suffix: '.min'}))
+  .pipe(sourcemaps.write('public/js/'))
+  .on('error', errorNotify)
+  .pipe(gulp.dest('public/js/'))
   .pipe(notify({ message: 'Javascript task complete' }));
 });
 
@@ -89,7 +110,8 @@ gulp.task('images', function () {
 */
 
 gulp.task('watch', function() {
-  gulp.watch(['admin/js/src/*.js', 'public/js/src/*.js'], ['javascript']);
+  gulp.watch(['admin/js/src/*.js'], ['admin-javascript']);
+  gulp.watch(['public/js/src/*.js'], ['public-javascript']);
   gulp.watch(['admin/css/*.styl', 'public/css/*styl'], ['style']);
 });
 
