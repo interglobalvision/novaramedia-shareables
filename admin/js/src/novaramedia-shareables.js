@@ -88,7 +88,12 @@ class Shareables {
   }
 
   generateShareable() {
-    // Get
+
+    // Clean the canvas
+    this.canvas.stage.clear();
+    this.canvas.update();
+
+    // Get title
     let title = this.postTitleField.val();
 
     // Get image

@@ -20,12 +20,7 @@ class ShareableCanvas {
     this.stage.addEventListener('pressmove', event =>  this.stagePressMove(event));
     this.stage.addEventListener('pressup', event =>  this.stagePressUp(event));
 
-    //createjs.Ticker.addEventListener('tick', event =>  this.enterFrame(event));
-
     createjs.Touch.enable(this.stage);
-
-    //this.drawCircle();
-
   }
 
   // store initial touchpoint-position

@@ -113,7 +113,11 @@ var Shareables = function () {
     value: function generateShareable() {
       var _this4 = this;
 
-      // Get
+      // Clean the canvas
+      this.canvas.stage.clear();
+      this.canvas.update();
+
+      // Get title
       var title = this.postTitleField.val();
 
       // Get image

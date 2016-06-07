@@ -38,11 +38,7 @@ var ShareableCanvas = function () {
       return _this.stagePressUp(event);
     });
 
-    //createjs.Ticker.addEventListener('tick', event =>  this.enterFrame(event));
-
     createjs.Touch.enable(this.stage);
-
-    //this.drawCircle();
   }
 
   // store initial touchpoint-position
