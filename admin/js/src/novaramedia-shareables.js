@@ -8,6 +8,7 @@ class Shareables {
     this.postTitleField = $('#shareable-post-title');
     this.postImageField = $('#shareable-post-image');
     this.postTextField = $('#shareable-post-text');
+    this.postUrlField = $('#shareable-post-url');
 
     this.canvas = new ShareableCanvas({
       'container': 'canvas-container'
@@ -17,30 +18,32 @@ class Shareables {
     this.bind();
 
 
-    this.getPostData();
+    if( !!this.postUrlField.val() ) {
+      this.getPostData();
+    }
   }
 
   bind() {
     var _this = this;
 
-    $('#get-post-data').on('click', () => this.getPostData( $('#shareable-post-id').val() ) );
+    $('#get-post-data').on('click', () => this.getPostData( $('#shareable-post-url').val() ) );
 
     $('#generate-shareable').on('click', () => this.generateShareable() );
   }
 
   getPostData() {
-    let postId = $('#shareable-post-id').val();
+    let postUrl = $('#shareable-post-url').val();
 
     // Turn on Loading
 
     // Load data
-    if( postId === undefined ) {
+    if( postUrl === undefined ) {
       return alert('Invalid post ID');
     }
      
     let data = {
       'action': 'get_post_data',
-      'postId': postId
+      'postUrl': postUrl
     };
 
     jQuery.ajax({
@@ -58,11 +61,19 @@ class Shareables {
     console.log('status', status);
     if( !response ) {
       console.error( response.error );
+      alert( response.error );
     } else if ( response.type !== 'success' ) {
       console.error( response.error );
+      alert( response.error );
     } else if ( response.type === 'success' ) {
       this.fillData(response.postData);
     }
+  }
+
+  stripHTML(text) {
+    var tmp = document.createElement("DIV");
+    tmp.innerHTML = text;
+    return tmp.textContent || tmp.innerText || "";
   }
 
   fillData(data) {
@@ -73,11 +84,39 @@ class Shareables {
     this.postImageField.val( data.post_image );
 
     // Set text
-    this.postTextField.val( data.post_content );
+    this.postTextField.val( this.stripHTML(data.post_content) );
   }
 
   generateShareable() {
-    return true;
+    // Get
+    let title = this.postTitleField.val();
+
+    // Get image
+    let image = this.postImageField.val();
+
+    // Get text
+    let text = this.postTextField.val();
+
+    // Get URL
+    let link = this.postUrlField.val();
+
+    let loadedImage = new Image();
+    loadedImage.src = image;
+
+    loadedImage.onload = (event) => {
+
+      this.canvas.drawBackground();
+
+      this.canvas.addImage(image);
+
+      this.canvas.addQuote(text);
+
+      this.canvas.addTitle(title);
+
+      this.canvas.addUrl(link);
+
+      this.canvas.addLogo();
+    }
   }
 };
 

@@ -17,6 +17,7 @@ var Shareables = function () {
     this.postTitleField = $('#shareable-post-title');
     this.postImageField = $('#shareable-post-image');
     this.postTextField = $('#shareable-post-text');
+    this.postUrlField = $('#shareable-post-url');
 
     this.canvas = new ShareableCanvas({
       'container': 'canvas-container'
@@ -25,7 +26,9 @@ var Shareables = function () {
     // Bind stuff
     this.bind();
 
-    this.getPostData();
+    if (!!this.postUrlField.val()) {
+      this.getPostData();
+    }
   }
 
   _createClass(Shareables, [{
@@ -36,7 +39,7 @@ var Shareables = function () {
       var _this = this;
 
       $('#get-post-data').on('click', function () {
-        return _this2.getPostData($('#shareable-post-id').val());
+        return _this2.getPostData($('#shareable-post-url').val());
       });
 
       $('#generate-shareable').on('click', function () {
@@ -48,18 +51,18 @@ var Shareables = function () {
     value: function getPostData() {
       var _this3 = this;
 
-      var postId = $('#shareable-post-id').val();
+      var postUrl = $('#shareable-post-url').val();
 
       // Turn on Loading
 
       // Load data
-      if (postId === undefined) {
+      if (postUrl === undefined) {
         return alert('Invalid post ID');
       }
 
       var data = {
         'action': 'get_post_data',
-        'postId': postId
+        'postUrl': postUrl
       };
 
       jQuery.ajax({
@@ -78,11 +81,20 @@ var Shareables = function () {
       console.log('status', status);
       if (!response) {
         console.error(response.error);
+        alert(response.error);
       } else if (response.type !== 'success') {
         console.error(response.error);
+        alert(response.error);
       } else if (response.type === 'success') {
         this.fillData(response.postData);
       }
+    }
+  }, {
+    key: 'stripHTML',
+    value: function stripHTML(text) {
+      var tmp = document.createElement("DIV");
+      tmp.innerHTML = text;
+      return tmp.textContent || tmp.innerText || "";
     }
   }, {
     key: 'fillData',
@@ -94,12 +106,42 @@ var Shareables = function () {
       this.postImageField.val(data.post_image);
 
       // Set text
-      this.postTextField.val(data.post_content);
+      this.postTextField.val(this.stripHTML(data.post_content));
     }
   }, {
     key: 'generateShareable',
     value: function generateShareable() {
-      return true;
+      var _this4 = this;
+
+      // Get
+      var title = this.postTitleField.val();
+
+      // Get image
+      var image = this.postImageField.val();
+
+      // Get text
+      var text = this.postTextField.val();
+
+      // Get URL
+      var link = this.postUrlField.val();
+
+      var loadedImage = new Image();
+      loadedImage.src = image;
+
+      loadedImage.onload = function (event) {
+
+        _this4.canvas.drawBackground();
+
+        _this4.canvas.addImage(image);
+
+        _this4.canvas.addQuote(text);
+
+        _this4.canvas.addTitle(title);
+
+        _this4.canvas.addUrl(link);
+
+        _this4.canvas.addLogo();
+      };
     }
   }]);
 

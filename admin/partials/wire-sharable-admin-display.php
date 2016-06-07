@@ -13,7 +13,7 @@
  */
 ?>
 <?php
-$post_id = !empty($_GET['shareable-post-id']) ? $_GET['shareable-post-id'] : '';
+$post_url = !empty($_GET['shareable-post-url']) ? $_GET['shareable-post-url'] : '';
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
@@ -25,10 +25,10 @@ $post_id = !empty($_GET['shareable-post-id']) ? $_GET['shareable-post-id'] : '';
     <tbody>
       <tr>
         <th scope="row">
-          <label for="shareable-post-id" style="width: 100%;">Post</label>
+          <label for="shareable-post-url" style="width: 100%;">Post URL</label>
         </th>
         <td>
-          <input type="text" style="" name="shareable-post-id" id="shareable-post-id" value="<?php echo $post_id; ?>"/>
+          <input type="text" style="" name="shareable-post-url" id="shareable-post-url" value="<?php echo $post_url; ?>"/>
         </td>
       </tr>
     </tbody>
@@ -72,7 +72,6 @@ $post_id = !empty($_GET['shareable-post-id']) ? $_GET['shareable-post-id'] : '';
 
   <hr />
 
-  <div id="canvas-container">
-  </div>
+  <canvas id="canvas-container" width="1000" height="600"></canvas>
   
 </div>

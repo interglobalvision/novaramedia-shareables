@@ -141,6 +141,7 @@ class Novaramedia_Shareables_Admin {
 		wp_enqueue_script( $this->novaramedia_shareables . '_shareables_script', plugin_dir_url( __FILE__ ) . 'js/novaramedia-shareables.js', array(), $this->version );
     wp_localize_script( $this->novaramedia_shareables . '_shareables_script', 'ShareableVars', array(
       'ajaxurl' => admin_url( 'admin-ajax.php' ),
+      'pluginurl' => plugin_dir_url(__FILE__) . '../'
     ));
   }
 
@@ -154,9 +155,10 @@ class Novaramedia_Shareables_Admin {
 
   public function ajax_get_post_data() {
     $response = [];
-    if( !empty( $_GET['postId'] ) ) {
+    if( !empty( $_GET['postUrl'] ) ) {
+      $postId = url_to_postid($_GET['postUrl']);
       $post = get_posts( array(
-        'p' => $_GET['postId'],
+        'p' => $postId,
       ) );
 
       if( !empty( $post ) ) {

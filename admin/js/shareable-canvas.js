@@ -245,37 +245,52 @@ var ShareableCanvas = function () {
       this.update();
     }
   }, {
+    key: 'drawBackground',
+    value: function drawBackground() {
+      var background = new createjs.Shape();
+
+      background.graphics.beginFill("Black").drawRect(0, 0, this.canvas.width, this.canvas.width);
+      this.stage.addChild(background);
+      this.update();
+    }
+  }, {
     key: 'loadImage',
-    value: function loadImage(path) {
+    value: function loadImage(path, fixSize) {
+      var _this2 = this;
+
       var that = this;
       var image = new Image();
       image.src = path;
 
-      image.onload = function (event) {
+      image.onload = function (event, fixSize) {
         var loadedImage = event.target;
-        that.addImage(loadedImage);
+        _this2.addImage(loadedImage);
       };
     }
   }, {
     key: 'addImage',
     value: function addImage(image) {
-      var _this2 = this;
+      var _this3 = this;
 
-      var that = this;
       var bitmap = new createjs.Bitmap(image);
 
+      bitmap.alpha = 0.3;
+
       var bounds = bitmap.getBounds();
-      bitmap.regX = bounds.width / 2;
-      bitmap.regY = bounds.height / 2;
+      var scale = this.canvas.height / bounds.height;
+
+      bitmap.scaleY = scale;
+      bitmap.scaleX = scale;
 
       bitmap.addEventListener('mousedown', function (event) {
-        return _this2.savePosition(event);
+        return _this3.savePosition(event);
       });
       bitmap.addEventListener('pressmove', function (event) {
-        return _this2.transform(event);
+        return _this3.transform(event);
       });
 
       this.stage.addChild(bitmap);
+
       this.update();
     }
   }, {
@@ -298,6 +313,73 @@ var ShareableCanvas = function () {
       midPoint.y = p1.y + p2.y / 2;
 
       return midPoint;
+    }
+  }, {
+    key: 'addQuote',
+    value: function addQuote(text) {
+      var _this4 = this;
+
+      var quote = new createjs.Text("\t\t\t\t\t\t\t\t" + text, "29px Georgia", "#ffffff");
+      quote.textBaseline = "alphabetic";
+      quote.x = 50;
+      quote.y = 100;
+      quote.lineWidth = 900;
+      quote.lineHeight = 50;
+
+      quote.addEventListener('mousedown', function (event) {
+        return _this4.savePosition(event);
+      });
+      quote.addEventListener('pressmove', function (event) {
+        return _this4.transform(event);
+      });
+
+      this.stage.addChild(quote);
+      this.update();
+    }
+  }, {
+    key: 'addTitle',
+    value: function addTitle(titleText) {
+      var title = new createjs.Text(titleText, "20px Georgia", "#ffffff");
+      title.textBaseline = "alphabetic";
+      title.x = 200;
+      title.y = 600 - 80;
+      title.lineWidth = 750;
+      title.lineHeight = 30;
+
+      this.stage.addChild(title);
+      this.update();
+    }
+  }, {
+    key: 'addUrl',
+    value: function addUrl(urlLink) {
+      var url = new createjs.Text(urlLink, "14px Georgia", "#ffffff");
+      url.textBaseline = "alphabetic";
+      url.x = 200;
+      url.y = 600 - 50;
+      url.lineWidth = 750;
+      url.lineHeight = 30;
+
+      this.stage.addChild(url);
+      this.update();
+    }
+  }, {
+    key: 'addLogo',
+    value: function addLogo() {
+      var _this5 = this;
+
+      var image = new Image();
+      image.src = ShareableVars.pluginurl + '/admin/img/nm-white-logo.svg';
+
+      image.onload = function (event, fixSize) {
+        var loadedImage = event.target;
+        var bitmap = new createjs.Bitmap(loadedImage);
+
+        bitmap.setTransform(50, 600 - 115, 0.11, 0.11, -3.15);
+
+        _this5.stage.addChild(bitmap);
+
+        _this5.update();
+      };
     }
   }]);
 
