@@ -25,11 +25,17 @@ class Shareables {
   bind() {
     var _this = this;
 
+    // Latest Posts dropdown
     $('#shareable-latest-posts').on('change', () => this.selectSetData( $('#shareable-latest-posts').val() ) );
 
+    // Get data button
     $('#get-post-data').on('click', () => this.getPostData( $('#shareable-post-url').val() ) );
 
+    // Generate shareable button
     $('#generate-shareable').on('click', () => this.generateShareable() );
+
+    // Download button
+    $('#download-shareable').on('click', () => this.downloadShareable() );
   }
 
   selectSetData(url) {
@@ -132,8 +138,21 @@ class Shareables {
       this.canvas.addUrl(link);
 
       this.canvas.addLogo();
+
     }
   }
+
+  downloadShareable() {
+    let filename = this.toSlug( this.postTitleField.val() ) + '.png';
+    let link = document.getElementById('download-shareable');
+    link.href = this.canvas.canvas.toDataURL();
+    link.download = filename;
+  }
+
+  toSlug(text) {
+    return text.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
+  }
+
 };
 
 jQuery(window).load(function () {

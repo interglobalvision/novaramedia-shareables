@@ -100,5 +100,9 @@ if( $latest_posts->have_posts() ) {
   <hr />
 
   <canvas id="canvas-container" width="1000" height="600"></canvas>
+  <p>
+    <a id="download-shareable">Download Shareable</a> | 
+    <a id="facebook-share-shareable">Share on Facebook</a>
+  </p>
   
 </div>
