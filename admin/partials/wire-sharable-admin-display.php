@@ -23,6 +23,33 @@ $post_url = !empty($_GET['shareable-post-url']) ? $_GET['shareable-post-url'] : 
 
   <table class="form-table">
     <tbody>
+<?php
+$latest_posts = new WP_Query( array(
+  'posts_per_page' => 25,
+) );
+
+if( $latest_posts->have_posts() ) {
+?>
+      <tr>
+        <th scope="row">
+          <label for="shareable-latest-posts" style="width: 100%;">Latest Posts</label>
+        </th>
+        <td>
+          <select id="shareable-latest-posts">
+  <?php
+  while( $latest_posts->have_posts() ) {
+    $latest_posts->the_post();
+  ?>       
+            <option value="<?php echo get_the_permalink(); ?>"><?php the_title(); ?></option> 
+  <?php
+  }
+  ?>
+          </select>
+        </td>
+      </tr>
+<?php
+}
+?>
       <tr>
         <th scope="row">
           <label for="shareable-post-url" style="width: 100%;">Post URL</label>
@@ -61,7 +88,7 @@ $post_url = !empty($_GET['shareable-post-url']) ? $_GET['shareable-post-url'] : 
           <label for="shareable-post-id" style="width: 100%;">Text</label>
         </th>
         <td>
-          <textarea name="shareable-post-text" id="shareable-post-text" class="large-text" rows="3"></textarea>
+          <textarea name="shareable-post-text" id="shareable-post-text" class="large-text" rows="9"></textarea>
         </td>
       </tr>
     </tbody>

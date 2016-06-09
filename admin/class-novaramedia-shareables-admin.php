@@ -133,7 +133,7 @@ class Novaramedia_Shareables_Admin {
 		wp_enqueue_script( $this->novaramedia_shareables . '_easeljs', plugin_dir_url( __FILE__ ) . 'js/easeljs.min.js', array( 'jquery' ), $this->version );
 
     // Class in charge of managing the canvas
-		wp_enqueue_script( $this->novaramedia_shareables . '_shareable_canvas', plugin_dir_url( __FILE__ ) . 'js/shareable-canvas.js', array(), $this->version );
+		wp_enqueue_script( $this->novaramedia_shareables . '_shareable_canvas', plugin_dir_url( __FILE__ ) . 'js/shareable-canvas.min.js', array(), $this->version );
 
 		//wp_enqueue_script( $this->novaramedia_shareables . '_search_post_field', plugin_dir_url( __FILE__ ) . 'js/search-field.js', array('backbone'), $this->version );
 

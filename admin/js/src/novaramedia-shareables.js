@@ -3,7 +3,6 @@
 let $ = jQuery;
 class Shareables {
   constructor() {
-    this.container = $('.shareable-container');
 
     this.postTitleField = $('#shareable-post-title');
     this.postImageField = $('#shareable-post-image');
@@ -26,9 +25,17 @@ class Shareables {
   bind() {
     var _this = this;
 
+    $('#shareable-latest-posts').on('change', () => this.selectSetData( $('#shareable-latest-posts').val() ) );
+
     $('#get-post-data').on('click', () => this.getPostData( $('#shareable-post-url').val() ) );
 
     $('#generate-shareable').on('click', () => this.generateShareable() );
+  }
+
+  selectSetData(url) {
+
+    this.postUrlField.val(url);
+    this.getPostData(url);
   }
 
   getPostData() {
@@ -101,6 +108,10 @@ class Shareables {
 
     // Get text
     let text = this.postTextField.val();
+
+    if( text.length > 454 ) {
+      return alert('Text is too long');
+    }
 
     // Get URL
     let link = this.postUrlField.val();

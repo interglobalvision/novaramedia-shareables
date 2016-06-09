@@ -12,8 +12,6 @@ var Shareables = function () {
   function Shareables() {
     _classCallCheck(this, Shareables);
 
-    this.container = $('.shareable-container');
-
     this.postTitleField = $('#shareable-post-title');
     this.postImageField = $('#shareable-post-image');
     this.postTextField = $('#shareable-post-text');
@@ -38,6 +36,10 @@ var Shareables = function () {
 
       var _this = this;
 
+      $('#shareable-latest-posts').on('change', function () {
+        return _this2.selectSetData($('#shareable-latest-posts').val());
+      });
+
       $('#get-post-data').on('click', function () {
         return _this2.getPostData($('#shareable-post-url').val());
       });
@@ -45,6 +47,13 @@ var Shareables = function () {
       $('#generate-shareable').on('click', function () {
         return _this2.generateShareable();
       });
+    }
+  }, {
+    key: 'selectSetData',
+    value: function selectSetData(url) {
+
+      this.postUrlField.val(url);
+      this.getPostData(url);
     }
   }, {
     key: 'getPostData',
@@ -125,6 +134,10 @@ var Shareables = function () {
 
       // Get text
       var text = this.postTextField.val();
+
+      if (text.length > 454) {
+        return alert('Text is too long');
+      }
 
       // Get URL
       var link = this.postUrlField.val();
