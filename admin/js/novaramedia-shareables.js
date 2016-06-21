@@ -14,6 +14,9 @@ var Shareables = function () {
 
     this.container = $('.shareable-container');
 
+    this.$recentPostsSelect = $('#shareable-post-latest-select');
+    this.$postUrlInput = $('#shareable-post-url');
+
     this.postTitleField = $('#shareable-post-title');
     this.postImageField = $('#shareable-post-image');
     this.postTextField = $('#shareable-post-text');
@@ -28,34 +31,42 @@ var Shareables = function () {
 
     if (!!this.postUrlField.val()) {
       this.getPostData();
+    } else {
+      this.setUrlFromSelect();
     }
   }
 
   _createClass(Shareables, [{
     key: 'bind',
     value: function bind() {
-      var _this2 = this;
-
       var _this = this;
 
+      this.$recentPostsSelect.on('change', function () {
+        return _this.setUrlFromSelect();
+      });
+
       $('#get-post-data').on('click', function () {
-        return _this2.getPostData($('#shareable-post-url').val());
+        return _this.getPostData();
       });
 
       $('#generate-shareable').on('click', function () {
-        return _this2.generateShareable();
+        return _this.generateShareable();
       });
+    }
+  }, {
+    key: 'setUrlFromSelect',
+    value: function setUrlFromSelect() {
+
+      this.$postUrlInput.val(this.$recentPostsSelect.val());
+      this.getPostData();
     }
   }, {
     key: 'getPostData',
     value: function getPostData() {
-      var _this3 = this;
+      var _this2 = this;
 
-      var postUrl = $('#shareable-post-url').val();
+      var postUrl = this.$postUrlInput.val();
 
-      // Turn on Loading
-
-      // Load data
       if (postUrl === undefined) {
         return alert('Invalid post ID');
       }
@@ -70,30 +81,34 @@ var Shareables = function () {
         type: 'get',
         data: data,
         success: function success(response) {
-          return _this3.ajaxSuccess(response, status);
+          return _this2.ajaxSuccess(response, status);
         }
       });
     }
   }, {
     key: 'ajaxSuccess',
     value: function ajaxSuccess(response, status) {
-      console.log('response', response);
-      console.log('status', status);
       if (!response) {
+
         console.error(response.error);
         alert(response.error);
       } else if (response.type !== 'success') {
+
         console.error(response.error);
         alert(response.error);
       } else if (response.type === 'success') {
+
         this.fillData(response.postData);
+        this.generateShareable();
       }
     }
   }, {
     key: 'stripHTML',
     value: function stripHTML(text) {
       var tmp = document.createElement("DIV");
+
       tmp.innerHTML = text;
+
       return tmp.textContent || tmp.innerText || "";
     }
   }, {
@@ -111,7 +126,7 @@ var Shareables = function () {
   }, {
     key: 'generateShareable',
     value: function generateShareable() {
-      var _this4 = this;
+      var _this3 = this;
 
       // Clean the canvas
       this.canvas.stage.clear();
@@ -134,17 +149,17 @@ var Shareables = function () {
 
       loadedImage.onload = function (event) {
 
-        _this4.canvas.drawBackground();
+        _this3.canvas.drawBackground();
 
-        _this4.canvas.addImage(image);
+        _this3.canvas.addImage(image);
 
-        _this4.canvas.addQuote(text);
+        _this3.canvas.addQuote(text);
 
-        _this4.canvas.addTitle(title);
+        _this3.canvas.addTitle(title);
 
-        _this4.canvas.addUrl(link);
+        _this3.canvas.addUrl(link);
 
-        _this4.canvas.addLogo();
+        _this3.canvas.addLogo();
       };
     }
   }]);

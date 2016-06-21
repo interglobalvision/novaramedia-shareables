@@ -5,6 +5,9 @@ class Shareables {
   constructor() {
     this.container = $('.shareable-container');
 
+    this.$recentPostsSelect = $('#shareable-post-latest-select')
+    this.$postUrlInput = $('#shareable-post-url')
+
     this.postTitleField = $('#shareable-post-title');
     this.postImageField = $('#shareable-post-image');
     this.postTextField = $('#shareable-post-text');
@@ -18,29 +21,35 @@ class Shareables {
     this.bind();
 
 
-    if( !!this.postUrlField.val() ) {
+    if ( !!this.postUrlField.val() ) {
       this.getPostData();
+    } else {
+      this.setUrlFromSelect();
     }
   }
 
   bind() {
-    var _this = this;
+    this.$recentPostsSelect.on('change', () => this.setUrlFromSelect() );
 
-    $('#get-post-data').on('click', () => this.getPostData( $('#shareable-post-url').val() ) );
+    $('#get-post-data').on('click', () => this.getPostData() );
 
     $('#generate-shareable').on('click', () => this.generateShareable() );
   }
 
+  setUrlFromSelect() {
+
+    this.$postUrlInput.val(this.$recentPostsSelect.val());
+    this.getPostData();
+
+  }
+
   getPostData() {
-    let postUrl = $('#shareable-post-url').val();
+    let postUrl = this.$postUrlInput.val();
 
-    // Turn on Loading
-
-    // Load data
-    if( postUrl === undefined ) {
+    if ( postUrl === undefined ) {
       return alert('Invalid post ID');
     }
-     
+
     let data = {
       'action': 'get_post_data',
       'postUrl': postUrl
@@ -53,26 +62,31 @@ class Shareables {
       success: response => this.ajaxSuccess(response, status)
     });
 
-
   }
 
   ajaxSuccess(response, status) {
-    console.log('response', response);
-    console.log('status', status);
-    if( !response ) {
+    if ( !response ) {
+
       console.error( response.error );
       alert( response.error );
+
     } else if ( response.type !== 'success' ) {
+
       console.error( response.error );
       alert( response.error );
+
     } else if ( response.type === 'success' ) {
+
       this.fillData(response.postData);
+      this.generateShareable();
     }
   }
 
   stripHTML(text) {
     var tmp = document.createElement("DIV");
+
     tmp.innerHTML = text;
+
     return tmp.textContent || tmp.innerText || "";
   }
 
