@@ -20,7 +20,7 @@ $post_url = !empty($_GET['shareable-post-url']) ? $_GET['shareable-post-url'] : 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
 <div class="wrap shareable-container">
-  <h2>Wire Shareable</h2>
+  <h2>General Post Shareable</h2>
 
   <table class="form-table">
   <h3>Load data</h3>
