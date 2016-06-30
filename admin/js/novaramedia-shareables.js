@@ -173,7 +173,7 @@ var Shareables = function () {
   }, {
     key: 'downloadShareable',
     value: function downloadShareable() {
-      var filename = this.toSlug(this.postTitleField.val()) + '.png';
+      var filename = this.toSlug(this.postTitleField.val()) + '-post-shareable.png';
       var link = document.getElementById('download-shareable');
       link.href = this.canvas.canvas.toDataURL();
       link.download = filename;

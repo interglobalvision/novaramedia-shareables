@@ -145,7 +145,7 @@ class Shareables {
   }
 
   downloadShareable() {
-    let filename = this.toSlug( this.postTitleField.val() ) + '.png';
+    let filename = this.toSlug( this.postTitleField.val() ) + '-post-shareable.png';
     let link = document.getElementById('download-shareable');
     link.href = this.canvas.canvas.toDataURL();
     link.download = filename;

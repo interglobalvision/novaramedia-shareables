@@ -90,7 +90,7 @@ $post_url = !empty($_GET['shareable-post-url']) ? $_GET['shareable-post-url'] : 
 
   <canvas id="canvas-container" width="1000" height="600"></canvas>
   <p>
-    <a id="download-shareable">Download Shareable</a>
+    <a id="download-shareable" class="button button-primary">Download Shareable</a>
   </p>
 
 </div>
