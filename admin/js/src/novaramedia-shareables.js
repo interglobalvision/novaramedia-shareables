@@ -29,11 +29,17 @@ class Shareables {
   }
 
   bind() {
+    // Latest Posts dropdown
     this.$recentPostsSelect.on('change', () => this.setUrlFromSelect() );
 
+    // Get data button
     $('#get-post-data').on('click', () => this.getPostData() );
 
+    // Generate shareable button
     $('#generate-shareable').on('click', () => this.generateShareable() );
+
+    // Download button
+    $('#download-shareable').on('click', () => this.downloadShareable() );
   }
 
   setUrlFromSelect() {
@@ -137,6 +143,18 @@ class Shareables {
       this.canvas.addLogo();
     }
   }
+
+  downloadShareable() {
+    let filename = this.toSlug( this.postTitleField.val() ) + '.png';
+    let link = document.getElementById('download-shareable');
+    link.href = this.canvas.canvas.toDataURL();
+    link.download = filename;
+  }
+
+  toSlug(text) {
+    return text.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
+  }
+
 };
 
 jQuery(window).load(function () {
