@@ -111,18 +111,18 @@ class Novaramedia_Shareables_Admin {
       array( $this, 'shareables_settings_page' )
     );
 
-    // Add Wire Shareable page
-    $wire_page = add_submenu_page(
+    // Add Quote Shareable page
+    $quote_page = add_submenu_page(
       'novaramedia-shareables',
-      'Wire Shareable',
-      'Wire',
+      'Quote Shareable',
+      'Quote',
       'manage_options',
-      'wire-sharable',
-      array( $this, 'wire_shareable_page' )
+      'quote-shareable',
+      array( $this, 'quote_shareable_page' )
     );
 
-    // Enqueue files for Wire Page
-		add_action( 'load-' . $wire_page, array( $this, 'enqueue_shareable_scripts') );
+    // Enqueue files for Quote Page
+		add_action( 'load-' . $quote_page, array( $this, 'enqueue_shareable_scripts') );
 
   }
 
@@ -149,8 +149,8 @@ class Novaramedia_Shareables_Admin {
     include_once( plugin_dir_path( __FILE__ ) . 'partials/shareables-settings-admin-display.php' );
   }
 
-  public function wire_shareable_page() {
-    include_once( plugin_dir_path( __FILE__ ) . 'partials/wire-sharable-admin-display.php' );
+  public function quote_shareable_page() {
+    include_once( plugin_dir_path( __FILE__ ) . 'partials/quote-shareable-admin-display.php' );
   }
 
   public function ajax_get_post_data() {
