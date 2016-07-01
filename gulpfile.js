@@ -44,7 +44,7 @@ gulp.task('admin-javascript', function() {
   .pipe(babel({
     presets: ['es2015']
   }))
-  .on('error', console.error.bind(console))
+  .on('error', errorNotify)
   .pipe(gulp.dest('admin/js/'))
   .pipe(sourcemaps.init())
   .pipe(uglify())
@@ -61,7 +61,7 @@ gulp.task('public-javascript', function() {
   .pipe(babel({
     presets: ['es2015']
   }))
-  .on('error', console.error.bind(console))
+  .on('error', errorNotify)
   .pipe(gulp.dest('public/js/'))
   .pipe(sourcemaps.init())
   .pipe(uglify())

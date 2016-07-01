@@ -1,6 +1,5 @@
 /* jshint browser: true, devel: true, indent: 2, curly: true, eqeqeq: true, futurehostile: true, latedef: true, undef: true, unused: true, esversion: 6 */
-/* global, $, document, jQuery */
-
+/* global $, document, Modernizr */
 class ShareableCanvas {
   // This is the Constructor
   // it run when an instance is created
@@ -21,12 +20,7 @@ class ShareableCanvas {
     this.stage.addEventListener('pressmove', event =>  this.stagePressMove(event));
     this.stage.addEventListener('pressup', event =>  this.stagePressUp(event));
 
-    //createjs.Ticker.addEventListener('tick', event =>  this.enterFrame(event));
-
     createjs.Touch.enable(this.stage);
-
-    //this.drawCircle();
-
   }
 
   // store initial touchpoint-position
@@ -217,30 +211,42 @@ class ShareableCanvas {
 
   }
 
-  loadImage(path) {
+  drawBackground() {
+    let background = new createjs.Shape();
+
+    background.graphics.beginFill("Black").drawRect(0,0, this.canvas.width, this.canvas.width);
+    this.stage.addChild(background);
+    this.update();
+  }
+
+  loadImage(path, fixSize) {
     let that = this;
     let image = new Image();
     image.src = path;
 
-    image.onload = function(event) {
+    image.onload = (event, fixSize) => {
       let loadedImage = event.target;
-      that.addImage(loadedImage);
+      this.addImage(loadedImage);
     }
 
   }
 
   addImage(image) {
-    let that = this;
     let bitmap = new createjs.Bitmap(image);
 
+    bitmap.alpha = 0.3;
+
     let bounds = bitmap.getBounds();
-    bitmap.regX = bounds.width / 2;
-    bitmap.regY = bounds.height / 2;
+    let scale = this.canvas.height / bounds.height;
+
+    bitmap.scaleY = scale;
+    bitmap.scaleX = scale;
 
     bitmap.addEventListener('mousedown', event => this.savePosition(event));
     bitmap.addEventListener('pressmove', event => this.transform(event));
 
     this.stage.addChild(bitmap);
+
     this.update();
   }
 
@@ -262,5 +268,62 @@ class ShareableCanvas {
 
     return midPoint;
   }
+
+  addQuote(text) {
+    let quote = new createjs.Text("\t\t\t\t\t\t\t\t"+ text, "29px Georgia", "#ffffff");
+    quote.textBaseline = "alphabetic";
+    quote.x = 50;
+    quote.y = 100;
+    quote.lineWidth = 900;
+    quote.lineHeight = 50;
+
+    quote.addEventListener('mousedown', event => this.savePosition(event));
+    quote.addEventListener('pressmove', event => this.transform(event));
+
+    this.stage.addChild(quote);
+    this.update();
+  }
+
+  addTitle(titleText) {
+    let title = new createjs.Text(titleText, "20px Georgia", "#ffffff");
+    title.textBaseline = "alphabetic";
+    title.x = 200;
+    title.y = 600-80;
+    title.lineWidth = 750;
+    title.lineHeight = 30;
+
+    this.stage.addChild(title);
+    this.update();
+  }
+
+  addUrl(urlLink) {
+    let url = new createjs.Text(urlLink, "14px Georgia", "#ffffff");
+    url.textBaseline = "alphabetic";
+    url.x = 200;
+    url.y = 600-50;
+    url.lineWidth = 750;
+    url.lineHeight = 30;
+
+    this.stage.addChild(url);
+    this.update();
+  }
+
+  addLogo() {
+    let image = new Image();
+    image.src = ShareableVars.pluginurl + '/admin/img/nm-white-logo.svg';
+
+    image.onload = (event, fixSize) => {
+      let loadedImage = event.target;
+      let bitmap = new createjs.Bitmap(loadedImage);
+
+      bitmap.setTransform(50, 600 - 115, 0.11, 0.11, -3.15);
+
+      this.stage.addChild(bitmap);
+
+      this.update();
+      }
+
+  }
+
 
 };

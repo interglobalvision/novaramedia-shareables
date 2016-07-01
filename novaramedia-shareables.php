@@ -27,7 +27,7 @@
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
-	die;
+  die;
 }
 
 /**
@@ -35,8 +35,8 @@ if ( ! defined( 'WPINC' ) ) {
  * This action is documented in includes/class-novaramedia-shareables-activator.php
  */
 function activate_novaramedia_shareables() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-novaramedia-shareables-activator.php';
-	Novaramedia_Shareables_Activator::activate();
+  require_once plugin_dir_path( __FILE__ ) . 'includes/class-novaramedia-shareables-activator.php';
+  Novaramedia_Shareables_Activator::activate();
 }
 
 /**
@@ -44,8 +44,8 @@ function activate_novaramedia_shareables() {
  * This action is documented in includes/class-novaramedia-shareables-deactivator.php
  */
 function deactivate_novaramedia_shareables() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-novaramedia-shareables-deactivator.php';
-	Novaramedia_Shareables_Deactivator::deactivate();
+  require_once plugin_dir_path( __FILE__ ) . 'includes/class-novaramedia-shareables-deactivator.php';
+  Novaramedia_Shareables_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_novaramedia_shareables' );
@@ -68,8 +68,8 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-novaramedia-shareables.php
  */
 function run_novaramedia_shareables() {
 
-	$plugin = new Novaramedia_Shareables();
-	$plugin->run();
+  $plugin = new Novaramedia_Shareables();
+  $plugin->run();
 
 }
 run_novaramedia_shareables();
