@@ -155,8 +155,8 @@ class Novaramedia_Shareables_Admin {
 
   public function ajax_get_post_data() {
     $response = [];
-    if( !empty( $_GET['postUrl'] ) ) {
-      $postId = url_to_postid($_GET['postUrl']);
+    if( !empty( $_GET['postId'] ) ) {
+      $postId = $_GET['postId'];
       $post = get_posts( array(
         'p' => $postId,
       ) );
@@ -168,6 +168,7 @@ class Novaramedia_Shareables_Admin {
         );
 
         $response['postData']->post_image = wp_get_attachment_url( get_post_thumbnail_id( $post[0]->ID, 'full' ) );
+        $response['postData']->post_permalink = get_permalink($post[0]->ID);
       } else {
         $response = array(
           'type' => 'error',

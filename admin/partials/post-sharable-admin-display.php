@@ -12,9 +12,9 @@
  * @subpackage Novaramedia_Shareables/admin/partials
  */
 
-$recent_posts = get_posts('posts_per_page=10');
+$recent_posts = get_posts('posts_per_page=20');
 
-$post_url = !empty($_GET['shareable-post-url']) ? $_GET['shareable-post-url'] : '';
+$post_id = !empty($_GET['shareable-post-url']) ? $_GET['shareable-post-url'] : '';
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
@@ -33,7 +33,7 @@ $post_url = !empty($_GET['shareable-post-url']) ? $_GET['shareable-post-url'] : 
           <select name="shareable-post-latest-select" id="shareable-post-latest-select">
             <?php
               foreach($recent_posts as $recent_post) {
-                echo '<option value="' . get_the_permalink($recent_post->ID) . '">' . $recent_post->post_title . '</option>';
+                echo '<option value="' . $recent_post->ID . '">' . $recent_post->post_title . '</option>';
               }
             ?>
           </select>
@@ -41,10 +41,10 @@ $post_url = !empty($_GET['shareable-post-url']) ? $_GET['shareable-post-url'] : 
       </tr>
       <tr>
         <th scope="row">
-          <label for="shareable-post-url" style="width: 100%;">Post URL</label>
+          <label for="shareable-post-id" style="width: 100%;">Post ID</label>
         </th>
         <td>
-          <input type="text" style="" name="shareable-post-url" id="shareable-post-url" value="<?php echo $post_url; ?>"/>
+          <input type="text" style="" name="shareable-post-id" id="shareable-post-id" value="<?php echo $post_id; ?>"/>
         </td>
       </tr>
     </tbody>
@@ -61,25 +61,26 @@ $post_url = !empty($_GET['shareable-post-url']) ? $_GET['shareable-post-url'] : 
           <label for="shareable-post-title" style="width: 100%;">Title</label>
         </th>
         <td>
-          <input type="text" style="" name="shareable-post-title" id="shareable-post-title" value=""/>
+          <input type="text" name="shareable-post-title" id="shareable-post-title" value=""/>
         </td>
       </tr>
       <tr>
         <th scope="row">
-          <label for="shareable-post-id" style="width: 100%;">Image</label>
+          <label for="shareable-post-image" style="width: 100%;">Image</label>
         </th>
         <td>
-          <input type="text" style="" name="shareable-post-image" id="shareable-post-image" value=""/>
+          <input type="text" name="shareable-post-image" id="shareable-post-image" value=""/>
         </td>
       </tr>
       <tr>
         <th scope="row">
-          <label for="shareable-post-id" style="width: 100%;">Text</label>
+          <label for="shareable-post-text" style="width: 100%;">Text</label>
         </th>
         <td>
           <textarea name="shareable-post-text" id="shareable-post-text" class="large-text" rows="3"></textarea>
         </td>
       </tr>
+      <input type="hidden" name="shareable-post-url" id="shareable-post-url" value=""/>
     </tbody>
   </table>
   <p class="submit">
