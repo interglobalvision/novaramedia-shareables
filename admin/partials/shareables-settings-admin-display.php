@@ -16,5 +16,6 @@
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
 <div class="wrap">
-  <h2>Novaramedia Shareables Settings</h2>
+  <h1>Novara Media shareables generators</h1>
+  <p>This plugin consists of different panels used to create different types of shareable images from different data sources</p>
 </div>
