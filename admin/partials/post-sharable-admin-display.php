@@ -14,7 +14,11 @@
 
 $recent_posts = get_posts('posts_per_page=20');
 
-$post_id = !empty($_GET['shareable-post-url']) ? $_GET['shareable-post-url'] : '';
+if (!empty($_GET['shareable-post-url'])) {
+  $post_id = $_GET['shareable-post-url'];
+} else {
+  $post_id = '';
+}
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
