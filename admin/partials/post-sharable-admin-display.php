@@ -31,7 +31,7 @@ if (!empty($_GET['shareable-post-url'])) {
     <tbody>
       <tr>
         <th scope="row">
-          <label for="shareable-post-latest-select" style="width: 100%;">Latest 10 Posts</label>
+          <label for="shareable-post-latest-select" style="width: 100%;">Latest 20 Posts</label>
         </th>
         <td>
           <select name="shareable-post-latest-select" id="shareable-post-latest-select">
