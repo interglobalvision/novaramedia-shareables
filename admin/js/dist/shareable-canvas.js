@@ -270,15 +270,7 @@ var ShareableCanvas = function () {
       bitmap.alpha = 0.3;
 
       var bounds = bitmap.getBounds();
-
-      var ratio = bounds.height / bounds.width;
-
-      // checking shape of source image to either fit height or width. based on 1000x600 px canvas
-      if (ratio > .6) {
-        var scale = this.canvas.width / bounds.width;
-      } else {
-        var scale = this.canvas.height / bounds.height;
-      }
+      var scale = this.canvas.height / bounds.height;
 
       bitmap.scaleY = scale;
       bitmap.scaleX = scale;
