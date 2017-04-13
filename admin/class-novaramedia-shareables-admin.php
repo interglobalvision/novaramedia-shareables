@@ -73,7 +73,7 @@ class Novaramedia_Shareables_Admin {
      * class.
      */
 
-    wp_enqueue_style( $this->novaramedia_shareables, plugin_dir_url( __FILE__ ) . 'css/novaramedia-shareables-admin.css', array(), $this->version, 'all' );
+    wp_enqueue_style( $this->novaramedia_shareables, plugin_dir_url( __FILE__ ) . 'css/dist/novaramedia-shareables-admin.min.css', array(), $this->version, 'all' );
 
   }
 
@@ -96,7 +96,7 @@ class Novaramedia_Shareables_Admin {
      * class.
      */
 
-    wp_enqueue_script( $this->novaramedia_shareables, plugin_dir_url( __FILE__ ) . 'js/novaramedia-shareables-admin.js', array( 'jquery' ), $this->version, false );
+    wp_enqueue_script( $this->novaramedia_shareables, plugin_dir_url( __FILE__ ) . 'js/dist/novaramedia-shareables-admin.min.js', array( 'jquery' ), $this->version, false );
 
   }
 
@@ -133,12 +133,10 @@ class Novaramedia_Shareables_Admin {
     wp_enqueue_script( $this->novaramedia_shareables . '_easeljs', plugin_dir_url( __FILE__ ) . 'js/easeljs.min.js', array( 'jquery' ), $this->version );
 
     // Class in charge of managing the canvas
-    wp_enqueue_script( $this->novaramedia_shareables . '_shareable_canvas', plugin_dir_url( __FILE__ ) . 'js/shareable-canvas.js', array(), $this->version );
-
-    //wp_enqueue_script( $this->novaramedia_shareables . '_search_post_field', plugin_dir_url( __FILE__ ) . 'js/search-field.js', array('backbone'), $this->version );
+    wp_enqueue_script( $this->novaramedia_shareables . '_shareable_canvas', plugin_dir_url( __FILE__ ) . 'js/dist/shareable-canvas.min.js', array(), $this->version );
 
     // Shareable main script
-    wp_enqueue_script( $this->novaramedia_shareables . '_shareables_script', plugin_dir_url( __FILE__ ) . 'js/novaramedia-shareables.js', array(), $this->version );
+    wp_enqueue_script( $this->novaramedia_shareables . '_shareables_script', plugin_dir_url( __FILE__ ) . 'js/dist/novaramedia-shareables.min.js', array(), $this->version );
     wp_localize_script( $this->novaramedia_shareables . '_shareables_script', 'ShareableVars', array(
       'ajaxurl' => admin_url( 'admin-ajax.php' ),
       'pluginurl' => plugin_dir_url(__FILE__) . '../'
