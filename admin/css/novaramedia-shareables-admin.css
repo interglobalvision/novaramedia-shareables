@@ -6,7 +6,9 @@
 .shareable-container select {
   width: 100%;
 }
-.shareable-container input[type=submit] {
+.shareable-container input[type=submit],
+.shareable-container input[type=radio],
+.shareable-container input[type=checkbox] {
   width: initial;
 }
 .shareable-container textarea {

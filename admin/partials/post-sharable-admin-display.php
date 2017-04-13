@@ -84,6 +84,24 @@ if (!empty($_GET['shareable-post-url'])) {
           <textarea name="shareable-post-text" id="shareable-post-text" class="large-text" rows="3"></textarea>
         </td>
       </tr>
+      <tr>
+        <th scope="row">
+          <label for="shareable-font-size" style="width: 100%;">Font Size</label>
+        </th>
+        <td>
+          <input name="shareable-font-size" type="radio" value="29" /> Small<br />
+          <input name="shareable-font-size" type="radio" value="40" checked="checked" /> Basic<br />
+          <input name="shareable-font-size" type="radio" value="45" /> Large
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          <label for="shareable-checkbox-boolean" style="width: 100%;">Add Quotemarks?</label>
+        </th>
+        <td>
+          <input name="shareable-checkbox-boolean" id="shareable-checkbox-boolean" type="checkbox">
+        </td>
+      </tr>
       <input type="hidden" name="shareable-post-url" id="shareable-post-url" value=""/>
     </tbody>
   </table>

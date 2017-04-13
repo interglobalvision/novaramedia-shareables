@@ -6,12 +6,12 @@ class Shareables {
     this.container = $('.shareable-container');
 
     this.$recentPostsSelect = $('#shareable-post-latest-select')
-    this.$postUrlInput = $('#shareable-post-url')
+    this.$postIdInput = $('#shareable-post-id')
 
-    this.postTitleField = $('#shareable-post-title');
-    this.postImageField = $('#shareable-post-image');
-    this.postTextField = $('#shareable-post-text');
-    this.postUrlField = $('#shareable-post-url');
+    this.$postTitleField = $('#shareable-post-title');
+    this.$postImageField = $('#shareable-post-image');
+    this.$postTextField = $('#shareable-post-text');
+    this.$postUrlField = $('#shareable-post-url');
 
     this.canvas = new ShareableCanvas({
       'container': 'canvas-container'
@@ -21,7 +21,7 @@ class Shareables {
     this.bind();
 
 
-    if ( !!this.postUrlField.val() ) {
+    if ( !!this.$postIdInput.val() ) {
       this.getPostData();
     } else {
       this.setUrlFromSelect();
@@ -44,21 +44,21 @@ class Shareables {
 
   setUrlFromSelect() {
 
-    this.$postUrlInput.val(this.$recentPostsSelect.val());
+    this.$postIdInput.val(this.$recentPostsSelect.val());
     this.getPostData();
 
   }
 
   getPostData() {
-    let postUrl = this.$postUrlInput.val();
+    let postID = this.$postIdInput.val();
 
-    if ( postUrl === undefined ) {
+    if ( postID === undefined ) {
       return alert('Invalid post ID');
     }
 
     let data = {
       'action': 'get_post_data',
-      'postUrl': postUrl
+      'postId': postID
     };
 
     jQuery.ajax({
@@ -98,13 +98,16 @@ class Shareables {
 
   fillData(data) {
     // Set title
-    this.postTitleField.val( data.post_title );
+    this.$postTitleField.val( data.post_title );
 
     // Set image
-    this.postImageField.val( data.post_image );
+    this.$postImageField.val( data.post_image );
 
     // Set text
-    this.postTextField.val( this.stripHTML(data.post_content) );
+    this.$postTextField.val( this.stripHTML(data.post_content) );
+
+    // Set URL
+    this.$postUrlField.val(data.post_permalink);
   }
 
   generateShareable() {
@@ -114,16 +117,26 @@ class Shareables {
     this.canvas.update();
 
     // Get title
-    let title = this.postTitleField.val();
+    let title = this.$postTitleField.val();
 
     // Get image
-    let image = this.postImageField.val();
+    let image = this.$postImageField.val();
 
     // Get text
-    let text = this.postTextField.val();
+    let text = this.$postTextField.val();
+
+    // Get font size
+    let fontSize = $('input[name=shareable-font-size]:checked').val();
+
+    // Add quotes?
+    let addQuotes = false;
+
+    if ($('#shareable-checkbox-boolean').is(':checked')) {
+      addQuotes = true;
+    }
 
     // Get URL
-    let link = this.postUrlField.val();
+    let link = this.$postUrlField.val();
 
     let loadedImage = new Image();
     loadedImage.src = image;
@@ -134,7 +147,7 @@ class Shareables {
 
       this.canvas.addImage(image);
 
-      this.canvas.addQuote(text);
+      this.canvas.addQuote(text, fontSize, addQuotes);
 
       this.canvas.addTitle(title);
 
@@ -145,7 +158,7 @@ class Shareables {
   }
 
   downloadShareable() {
-    let filename = this.toSlug( this.postTitleField.val() ) + '-post-shareable.png';
+    let filename = this.toSlug( this.$postTitleField.val() ) + '-post-shareable.png';
     let link = document.getElementById('download-shareable');
     link.href = this.canvas.canvas.toDataURL();
     link.download = filename;
