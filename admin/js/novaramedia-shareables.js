@@ -131,8 +131,6 @@ var Shareables = function () {
       // Set text
       this.$postTextField.val(this.stripHTML(data.post_content));
 
-      console.log(data);
-
       // Set URL
       this.$postUrlField.val(data.post_permalink);
     }

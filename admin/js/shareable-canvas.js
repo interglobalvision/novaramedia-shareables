@@ -6,11 +6,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 /* jshint browser: true, devel: true, indent: 2, curly: true, eqeqeq: true, futurehostile: true, latedef: true, undef: true, unused: true, esversion: 6 */
 /* global $, document, Modernizr */
-
 var ShareableCanvas = function () {
   // This is the Constructor
   // it run when an instance is created
-
   function ShareableCanvas(options) {
     var _this = this;
 
