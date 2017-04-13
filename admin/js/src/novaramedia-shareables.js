@@ -125,6 +125,16 @@ class Shareables {
     // Get text
     let text = this.$postTextField.val();
 
+    // Get font size
+    let fontSize = $('input[name=shareable-font-size]:checked').val();
+
+    // Add quotes?
+    let addQuotes = false;
+
+    if ($('#shareable-checkbox-boolean').is(':checked')) {
+      addQuotes = true;
+    }
+
     // Get URL
     let link = this.$postUrlField.val();
 
@@ -137,7 +147,7 @@ class Shareables {
 
       this.canvas.addImage(image);
 
-      this.canvas.addQuote(text);
+      this.canvas.addQuote(text, fontSize, addQuotes);
 
       this.canvas.addTitle(title);
 

@@ -119,7 +119,6 @@ var ShareableCanvas = function () {
           this.activeFingers++;
         }
       }
-      //console.log('Fingers', this.activeFingers);
     }
   }, {
     key: 'update',
@@ -318,22 +317,22 @@ var ShareableCanvas = function () {
     }
   }, {
     key: 'addQuote',
-    value: function addQuote(text) {
-      var _this4 = this;
+    value: function addQuote(sourceText, fontSize, addQuotes) {
+      var text = void 0;
 
-      var quote = new createjs.Text("\t\t\t\t\t\t\t\t" + text, "29px Georgia", "#ffffff");
+      if (addQuotes) {
+        text = '\t\t\t\t\t' + '“' + sourceText + '”';
+      } else {
+        text = '\t\t\t\t\t' + sourceText;
+      }
+
+      var quote = new createjs.Text(text, fontSize + 'px Georgia', '#ffffff');
+
       quote.textBaseline = "alphabetic";
       quote.x = 50;
       quote.y = 100;
       quote.lineWidth = 900;
-      quote.lineHeight = 50;
-
-      quote.addEventListener('mousedown', function (event) {
-        return _this4.savePosition(event);
-      });
-      quote.addEventListener('pressmove', function (event) {
-        return _this4.transform(event);
-      });
+      quote.lineHeight = fontSize * 1.7;
 
       this.stage.addChild(quote);
       this.update();
@@ -367,7 +366,7 @@ var ShareableCanvas = function () {
   }, {
     key: 'addLogo',
     value: function addLogo() {
-      var _this5 = this;
+      var _this4 = this;
 
       var image = new Image();
       image.src = ShareableVars.pluginurl + '/admin/img/nm-white-logo.svg';
@@ -378,9 +377,9 @@ var ShareableCanvas = function () {
 
         bitmap.setTransform(50, 600 - 115, 0.11, 0.11, -3.15);
 
-        _this5.stage.addChild(bitmap);
+        _this4.stage.addChild(bitmap);
 
-        _this5.update();
+        _this4.update();
       };
     }
   }]);

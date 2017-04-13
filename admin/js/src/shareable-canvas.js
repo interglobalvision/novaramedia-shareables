@@ -94,7 +94,6 @@ class ShareableCanvas {
         this.activeFingers++;
       }
     }
-    //console.log('Fingers', this.activeFingers);
   }
 
   update(event) {
@@ -150,7 +149,7 @@ class ShareableCanvas {
       let distance = this.getDistance(points[0].current, points[1].current) / this.getDistance(points[0].old, points[1].old);
       //console.log('Distance', distance);
 
-      if( distance > 1.01 ||  distance < 0.9 ) { 
+      if( distance > 1.01 ||  distance < 0.9 ) {
         distance = 1 - distance;
 
         let scale = event.currentTarget.scaleX * distance * -0.02;
@@ -269,16 +268,22 @@ class ShareableCanvas {
     return midPoint;
   }
 
-  addQuote(text) {
-    let quote = new createjs.Text("\t\t\t\t\t\t\t\t"+ text, "29px Georgia", "#ffffff");
+  addQuote(sourceText, fontSize, addQuotes) {
+    let text;
+
+    if (addQuotes) {
+      text = '\t\t\t\t\t' + '“' + sourceText + '”';
+    } else {
+      text = '\t\t\t\t\t' + sourceText;
+    }
+
+    let quote = new createjs.Text(text, fontSize + 'px Georgia', '#ffffff');
+
     quote.textBaseline = "alphabetic";
     quote.x = 50;
     quote.y = 100;
     quote.lineWidth = 900;
-    quote.lineHeight = 50;
-
-    quote.addEventListener('mousedown', event => this.savePosition(event));
-    quote.addEventListener('pressmove', event => this.transform(event));
+    quote.lineHeight = fontSize * 1.7;
 
     this.stage.addChild(quote);
     this.update();
