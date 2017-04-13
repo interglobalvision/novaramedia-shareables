@@ -119,7 +119,6 @@ var ShareableCanvas = function () {
           this.activeFingers++;
         }
       }
-      //console.log('Fingers', this.activeFingers);
     }
   }, {
     key: 'update',
@@ -320,8 +319,6 @@ var ShareableCanvas = function () {
       }
 
       var quote = new createjs.Text(text, fontSize + 'px Georgia', '#ffffff');
-
-      console.log('addQuotes', addQuotes);
 
       quote.textBaseline = "alphabetic";
       quote.x = 50;

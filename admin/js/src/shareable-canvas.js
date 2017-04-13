@@ -94,7 +94,6 @@ class ShareableCanvas {
         this.activeFingers++;
       }
     }
-    //console.log('Fingers', this.activeFingers);
   }
 
   update(event) {
@@ -279,8 +278,6 @@ class ShareableCanvas {
     }
 
     let quote = new createjs.Text(text, fontSize + 'px Georgia', '#ffffff');
-
-    console.log('addQuotes', addQuotes);
 
     quote.textBaseline = "alphabetic";
     quote.x = 50;
