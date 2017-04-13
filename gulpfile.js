@@ -72,7 +72,7 @@ gulp.task('style', function() {
 
 gulp.task('watch', function() {
   gulp.watch(['admin/js/src/*.js'], ['admin-javascript']);
-  gulp.watch(['admin/css/*.styl'], ['style']);
+  gulp.watch(['admin/css/src/*.styl'], ['style']);
 });
 
 gulp.task('default', ['watch']);
