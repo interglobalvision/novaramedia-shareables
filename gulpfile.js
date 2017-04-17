@@ -76,4 +76,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['watch']);
-gulp.task('build', ['style', 'javascript']);
+gulp.task('build', ['style', 'admin-javascript']);
