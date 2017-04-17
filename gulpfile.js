@@ -24,13 +24,8 @@ function errorNotify(error){
   util.log(util.colors.red('Error'), error.message);
 }
 
-
 gulp.task('javascript-check', function() {
-  var paths = [
-    'admin/js/src/*.js',
-    'public/js/src/*.js',
-  ];
-  return gulp.src(paths)
+  return gulp.src('admin/js/src/*.js')
   .pipe(sourcemaps.init())
   .pipe(jshint())
   .pipe(jshint.reporter('jshint-stylish'))
@@ -45,40 +40,19 @@ gulp.task('admin-javascript', function() {
     presets: ['es2015']
   }))
   .on('error', errorNotify)
-  .pipe(gulp.dest('admin/js/'))
+  .pipe(gulp.dest('admin/js/dist/'))
   .pipe(sourcemaps.init())
   .pipe(uglify())
   .on('error', errorNotify)
-  .pipe(rename({suffix: '.min'}))
-  .pipe(sourcemaps.write('admin/js/'))
-  .on('error', errorNotify)
-  .pipe(gulp.dest('admin/js/'))
-  .pipe(notify({ message: 'Javascript task complete' }));
-});
-
-gulp.task('public-javascript', function() {
-  return gulp.src('public/js/src/*.js')
-  .pipe(babel({
-    presets: ['es2015']
-  }))
-  .on('error', errorNotify)
-  .pipe(gulp.dest('public/js/'))
-  .pipe(sourcemaps.init())
-  .pipe(uglify())
+  .pipe(sourcemaps.write('sourcemaps'))
   .on('error', errorNotify)
   .pipe(rename({suffix: '.min'}))
-  .pipe(sourcemaps.write('public/js/'))
-  .on('error', errorNotify)
-  .pipe(gulp.dest('public/js/'))
+  .pipe(gulp.dest('admin/js/dist/'))
   .pipe(notify({ message: 'Javascript task complete' }));
 });
 
 gulp.task('style', function() {
-  var paths = [
-    'admin/css/**/*.styl',
-    'public/css/**/*.styl',
-  ];
-  return gulp.src(paths, { base: './'} )
+  return gulp.src('admin/css/src/*.styl')
   .pipe(plumber())
   .pipe(stylus({
       use: [
@@ -88,32 +62,18 @@ gulp.task('style', function() {
   .on('error', errorNotify)
   .pipe(autoprefixer())
   .on('error', errorNotify)
-  .pipe(gulp.dest('./'))
+  .pipe(gulp.dest('admin/css/dist/'))
   .pipe(rename({suffix: '.min'}))
   .pipe(minifycss())
   .on('error', errorNotify)
-  .pipe(gulp.dest('./'))
+  .pipe(gulp.dest('admin/css/dist/'))
   .pipe(notify({ message: 'Style task complete' }));
 });
 
-/*
-gulp.task('images', function () {
-    return gulp.src('www/src/images/*.*')
-    .pipe(cache('images'))
-    .pipe(imagemin({
-      progressive: false
-    }))
-    .on('error', errorNotify)
-    .pipe(gulp.dest('www/img/dist'))
-		.pipe(notify({ message: 'Images task complete' }));
-});
-*/
-
 gulp.task('watch', function() {
   gulp.watch(['admin/js/src/*.js'], ['admin-javascript']);
-  gulp.watch(['public/js/src/*.js'], ['public-javascript']);
-  gulp.watch(['admin/css/*.styl', 'public/css/*styl'], ['style']);
+  gulp.watch(['admin/css/src/*.styl'], ['style']);
 });
 
 gulp.task('default', ['watch']);
-gulp.task('build', ['style', 'javascript']);
+gulp.task('build', ['style', 'admin-javascript']);
