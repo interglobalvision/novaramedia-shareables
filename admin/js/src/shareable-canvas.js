@@ -285,7 +285,7 @@ class ShareableCanvas {
       text = '\t\t\t\t\t' + sourceText;
     }
 
-    let quote = new createjs.Text(text, fontSize + 'px Georgia', '#ffffff');
+    let quote = new createjs.Text(text, fontSize + 'px georgia', '#ffffff');
 
     quote.textBaseline = "alphabetic";
     quote.x = 50;
@@ -298,10 +298,10 @@ class ShareableCanvas {
   }
 
   addTitle(titleText) {
-    let title = new createjs.Text(titleText, "23px Georgia", "#ffffff");
+    let title = new createjs.Text(titleText, "23px helvetica, sans-serif", "#ffffff");
     title.textBaseline = "alphabetic";
     title.x = 200;
-    title.y = 627 - 90;
+    title.y = 627 - 85;
     title.lineWidth = 1000;
     title.lineHeight = 30;
 
@@ -310,7 +310,7 @@ class ShareableCanvas {
   }
 
   addUrl(urlLink) {
-    let url = new createjs.Text(urlLink, "14px Georgia", "#ffffff");
+    let url = new createjs.Text(urlLink, "14px helvetica, sans-serif", "#ffffff");
     url.textBaseline = "alphabetic";
     url.x = 200;
     url.y = 627 - 55;

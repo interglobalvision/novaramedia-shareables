@@ -326,7 +326,7 @@ var ShareableCanvas = function () {
         text = '\t\t\t\t\t' + sourceText;
       }
 
-      var quote = new createjs.Text(text, fontSize + 'px Georgia', '#ffffff');
+      var quote = new createjs.Text(text, fontSize + 'px georgia', '#ffffff');
 
       quote.textBaseline = "alphabetic";
       quote.x = 50;
@@ -340,10 +340,10 @@ var ShareableCanvas = function () {
   }, {
     key: 'addTitle',
     value: function addTitle(titleText) {
-      var title = new createjs.Text(titleText, "23px Georgia", "#ffffff");
+      var title = new createjs.Text(titleText, "23px helvetica, sans-serif", "#ffffff");
       title.textBaseline = "alphabetic";
       title.x = 200;
-      title.y = 627 - 90;
+      title.y = 627 - 85;
       title.lineWidth = 1000;
       title.lineHeight = 30;
 
@@ -353,7 +353,7 @@ var ShareableCanvas = function () {
   }, {
     key: 'addUrl',
     value: function addUrl(urlLink) {
-      var url = new createjs.Text(urlLink, "14px Georgia", "#ffffff");
+      var url = new createjs.Text(urlLink, "14px helvetica, sans-serif", "#ffffff");
       url.textBaseline = "alphabetic";
       url.x = 200;
       url.y = 627 - 55;
