@@ -140,6 +140,7 @@ class Shareables {
 
     let loadedImage = new Image();
     loadedImage.src = image;
+    loadedImage.crossOrigin = 'Anonymous';
 
     loadedImage.onload = (event) => {
 

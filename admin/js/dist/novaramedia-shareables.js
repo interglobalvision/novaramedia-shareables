@@ -167,6 +167,7 @@ var Shareables = function () {
 
       var loadedImage = new Image();
       loadedImage.src = image;
+      loadedImage.crossOrigin = 'Anonymous';
 
       loadedImage.onload = function (event) {
 
