@@ -111,7 +111,7 @@ if (!empty($_GET['shareable-post-url'])) {
 
   <hr />
 
-  <canvas id="canvas-container" width="1000" height="600"></canvas>
+  <canvas id="canvas-container" width="1200" height="627"></canvas>
   <p>
     <a id="download-shareable" class="button button-primary">Download Shareable</a>
   </p>

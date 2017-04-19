@@ -273,8 +273,8 @@ var ShareableCanvas = function () {
 
       var ratio = bounds.height / bounds.width;
 
-      // checking shape of source image to either fit height or width. based on 1000x600 px canvas
-      if (ratio > .6) {
+      // checking shape of source image to either fit height or width. based on 1200x627 px canvas
+      if (ratio > .5225) {
         var scale = this.canvas.width / bounds.width;
       } else {
         var scale = this.canvas.height / bounds.height;
@@ -326,12 +326,12 @@ var ShareableCanvas = function () {
         text = '\t\t\t\t\t' + sourceText;
       }
 
-      var quote = new createjs.Text(text, fontSize + 'px Georgia', '#ffffff');
+      var quote = new createjs.Text(text, fontSize + 'px georgia', '#ffffff');
 
       quote.textBaseline = "alphabetic";
       quote.x = 50;
       quote.y = 100;
-      quote.lineWidth = 900;
+      quote.lineWidth = 1100;
       quote.lineHeight = fontSize * 1.7;
 
       this.stage.addChild(quote);
@@ -340,11 +340,11 @@ var ShareableCanvas = function () {
   }, {
     key: 'addTitle',
     value: function addTitle(titleText) {
-      var title = new createjs.Text(titleText, "20px Georgia", "#ffffff");
+      var title = new createjs.Text(titleText, "23px helvetica, sans-serif", "#ffffff");
       title.textBaseline = "alphabetic";
       title.x = 200;
-      title.y = 600 - 80;
-      title.lineWidth = 750;
+      title.y = 627 - 85;
+      title.lineWidth = 1000;
       title.lineHeight = 30;
 
       this.stage.addChild(title);
@@ -353,11 +353,11 @@ var ShareableCanvas = function () {
   }, {
     key: 'addUrl',
     value: function addUrl(urlLink) {
-      var url = new createjs.Text(urlLink, "14px Georgia", "#ffffff");
+      var url = new createjs.Text(urlLink, "14px helvetica, sans-serif", "#ffffff");
       url.textBaseline = "alphabetic";
       url.x = 200;
-      url.y = 600 - 50;
-      url.lineWidth = 750;
+      url.y = 627 - 55;
+      url.lineWidth = 1000;
       url.lineHeight = 30;
 
       this.stage.addChild(url);
@@ -375,7 +375,7 @@ var ShareableCanvas = function () {
         var loadedImage = event.target;
         var bitmap = new createjs.Bitmap(loadedImage);
 
-        bitmap.setTransform(50, 600 - 115, 0.11, 0.11, -3.15);
+        bitmap.setTransform(50, 627 - 120, 0.11, 0.11, -3.15);
 
         _this4.stage.addChild(bitmap);
 
