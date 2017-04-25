@@ -1,3 +1,4 @@
+
 /* jshint browser: true, devel: true, indent: 2, curly: true, eqeqeq: true, futurehostile: true, latedef: true, undef: true, unused: true, esversion: 6 */
 
 let $ = jQuery;
