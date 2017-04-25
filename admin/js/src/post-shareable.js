@@ -147,7 +147,7 @@ class Shareables {
 
       this.canvas.drawBackground();
 
-      this.canvas.addImage(image);
+      this.canvas.addImage(loadedImage, .3, .5225);
 
       this.canvas.addQuote(text, fontSize, addQuotes);
 
@@ -155,7 +155,7 @@ class Shareables {
 
       this.canvas.addUrl(link);
 
-      this.canvas.addLogo();
+      this.canvas.addLogo(.11);
     }
   }
 

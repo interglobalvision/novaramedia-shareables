@@ -62,11 +62,11 @@ class SquareShareables {
 
         this.canvas.drawBackground();
 
-        this.canvas.addImage(loadedImage);
+        this.canvas.addImage(loadedImage, 1, 1);
 
         this.canvas.addQuote(text, fontSize, addQuotes);
 
-        this.canvas.addLogo();
+        this.canvas.addLogo(.18);
       }
 
       loadedImage.src = file.target.result;

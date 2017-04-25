@@ -173,7 +173,7 @@ var Shareables = function () {
 
         _this3.canvas.drawBackground();
 
-        _this3.canvas.addImage(image);
+        _this3.canvas.addImage(loadedImage, .3, .5225);
 
         _this3.canvas.addQuote(text, fontSize, addQuotes);
 
@@ -181,7 +181,7 @@ var Shareables = function () {
 
         _this3.canvas.addUrl(link);
 
-        _this3.canvas.addLogo();
+        _this3.canvas.addLogo(.11);
       };
     }
   }, {

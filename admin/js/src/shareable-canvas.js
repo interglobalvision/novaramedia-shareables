@@ -230,17 +230,17 @@ class ShareableCanvas {
 
   }
 
-  addImage(image) {
+  addImage(image, alpha, fittingRatio) {
     let bitmap = new createjs.Bitmap(image);
 
-    bitmap.alpha = 0.3;
+    bitmap.alpha = alpha;
 
     let bounds = bitmap.getBounds();
 
     var ratio = bounds.height / bounds.width;
 
     // checking shape of source image to either fit height or width. based on 1200x627 px canvas
-    if (ratio > .5225) {
+    if (ratio > fittingRatio) {
       var scale = this.canvas.width / bounds.width;
     } else {
       var scale = this.canvas.height / bounds.height;
@@ -321,17 +321,24 @@ class ShareableCanvas {
     this.update();
   }
 
-  addLogo() {
+  addLogo(scale) {
     let image = new Image();
     image.src = ShareableVars.pluginurl + '/admin/img/nm-white-logo.svg';
 
-    image.onload = (event, fixSize) => {
-      let loadedImage = event.target;
-      let bitmap = new createjs.Bitmap(loadedImage);
+    image.onload = (event) => {
+      let logo = new createjs.Bitmap(event.target);
 
-      bitmap.setTransform(50, 627 - 120, 0.11, 0.11, -3.15);
+      let bounds = logo.getBounds();
 
-      this.stage.addChild(bitmap);
+      logo.scaleX = scale;
+      logo.scaleY = scale;
+
+      logo.x = 50;
+      logo.y = this.canvas.height - (bounds.height * scale + 50);
+
+      logo.rotation = -3.15;
+
+      this.stage.addChild(logo);
 
       this.update();
     }

@@ -262,19 +262,19 @@ var ShareableCanvas = function () {
     }
   }, {
     key: 'addImage',
-    value: function addImage(image) {
+    value: function addImage(image, alpha, fittingRatio) {
       var _this3 = this;
 
       var bitmap = new createjs.Bitmap(image);
 
-      bitmap.alpha = 0.3;
+      bitmap.alpha = alpha;
 
       var bounds = bitmap.getBounds();
 
       var ratio = bounds.height / bounds.width;
 
       // checking shape of source image to either fit height or width. based on 1200x627 px canvas
-      if (ratio > .5225) {
+      if (ratio > fittingRatio) {
         var scale = this.canvas.width / bounds.width;
       } else {
         var scale = this.canvas.height / bounds.height;
@@ -365,19 +365,26 @@ var ShareableCanvas = function () {
     }
   }, {
     key: 'addLogo',
-    value: function addLogo() {
+    value: function addLogo(scale) {
       var _this4 = this;
 
       var image = new Image();
       image.src = ShareableVars.pluginurl + '/admin/img/nm-white-logo.svg';
 
-      image.onload = function (event, fixSize) {
-        var loadedImage = event.target;
-        var bitmap = new createjs.Bitmap(loadedImage);
+      image.onload = function (event) {
+        var logo = new createjs.Bitmap(event.target);
 
-        bitmap.setTransform(50, 627 - 120, 0.11, 0.11, -3.15);
+        var bounds = logo.getBounds();
 
-        _this4.stage.addChild(bitmap);
+        logo.scaleX = scale;
+        logo.scaleY = scale;
+
+        logo.x = 50;
+        logo.y = _this4.canvas.height - (bounds.height * scale + 50);
+
+        logo.rotation = -3.15;
+
+        _this4.stage.addChild(logo);
 
         _this4.update();
       };

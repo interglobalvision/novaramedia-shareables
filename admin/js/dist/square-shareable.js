@@ -79,11 +79,11 @@ var SquareShareables = function () {
 
           _this2.canvas.drawBackground();
 
-          _this2.canvas.addImage(loadedImage);
+          _this2.canvas.addImage(loadedImage, 1, 1);
 
           _this2.canvas.addQuote(text, fontSize, addQuotes);
 
-          _this2.canvas.addLogo();
+          _this2.canvas.addLogo(.18);
         };
 
         loadedImage.src = file.target.result;
