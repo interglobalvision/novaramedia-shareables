@@ -23,18 +23,18 @@
     <tbody>
       <tr>
         <th scope="row">
-          <label for="shareable-square-input-image" style="width: 100%;">Image</label>
+          <label for="input-image" style="width: 100%;">Image</label>
         </th>
         <td>
-          <input type="file" name="shareable-square-input-image" id="shareable-square-input-image" />
+          <input type="file" name="input-image" id="input-image" />
         </td>
       </tr>
       <tr>
         <th scope="row">
-          <label for="shareable-post-text" style="width: 100%;">Text</label>
+          <label for="input-text" style="width: 100%;">Text</label>
         </th>
         <td>
-          <textarea name="shareable-post-text" id="shareable-post-text" class="large-text" rows="3"></textarea>
+          <textarea name="input-text" id="input-text" class="large-text" rows="3"></textarea>
         </td>
       </tr>
       <tr>
@@ -57,10 +57,10 @@
     </tbody>
   </table>
   <p class="submit">
-    <input id="generate" type="submit" class="button button-primary" value="Generate">
+    <input id="generate-shareable" type="submit" class="button button-primary" value="Generate">
   </p>
 
-  <canvas id="canvas-container" width="1200" height="1200"></canvas>
+  <canvas id="canvas-container" width="1000" height="1000"></canvas>
   <p>
     <a id="download-shareable" class="button button-primary">Download Shareable</a>
   </p>
