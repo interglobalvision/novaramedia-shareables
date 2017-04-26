@@ -364,6 +364,26 @@ var ShareableCanvas = function () {
       this.update();
     }
   }, {
+    key: 'addNovaraDotMedia',
+    value: function addNovaraDotMedia() {
+      var tagUrl = new createjs.Text('NOVARA.MEDIA', "40px helvetica, sans-serif", "#ffffff");
+
+      tagUrl.textAlign = 'right';
+      tagUrl.textBaseline = 'hanging';
+
+      var bounds = tagUrl.getBounds();
+
+      console.log(bounds);
+
+      tagUrl.lineWidth = bounds.width;
+
+      tagUrl.x = this.canvas.width - 40;
+      tagUrl.y = 40;
+
+      this.stage.addChild(tagUrl);
+      this.update();
+    }
+  }, {
     key: 'addLogo',
     value: function addLogo(scale) {
       var _this4 = this;

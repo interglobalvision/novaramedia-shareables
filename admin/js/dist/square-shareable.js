@@ -84,6 +84,8 @@ var SquareShareables = function () {
           _this2.canvas.addQuote(text, fontSize, addQuotes);
 
           _this2.canvas.addLogo(.18);
+
+          _this2.canvas.addNovaraDotMedia();
         };
 
         loadedImage.src = file.target.result;

@@ -67,6 +67,8 @@ class SquareShareables {
         this.canvas.addQuote(text, fontSize, addQuotes);
 
         this.canvas.addLogo(.18);
+
+        this.canvas.addNovaraDotMedia();
       }
 
       loadedImage.src = file.target.result;

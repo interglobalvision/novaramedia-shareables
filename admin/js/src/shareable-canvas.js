@@ -321,6 +321,25 @@ class ShareableCanvas {
     this.update();
   }
 
+  addNovaraDotMedia() {
+    let tagUrl = new createjs.Text('NOVARA.MEDIA', "40px helvetica, sans-serif", "#ffffff");
+
+    tagUrl.textAlign = 'right';
+    tagUrl.textBaseline = 'hanging';
+
+    var bounds = tagUrl.getBounds();
+
+    console.log(bounds);
+
+    tagUrl.lineWidth = bounds.width;
+
+    tagUrl.x = this.canvas.width - 40;
+    tagUrl.y = 40;
+
+    this.stage.addChild(tagUrl);
+    this.update();
+  }
+
   addLogo(scale) {
     let image = new Image();
     image.src = ShareableVars.pluginurl + '/admin/img/nm-white-logo.svg';
