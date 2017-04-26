@@ -399,8 +399,6 @@ var ShareableCanvas = function () {
 
       var bounds = tagUrl.getBounds();
 
-      console.log(bounds);
-
       tagUrl.lineWidth = bounds.width;
 
       tagUrl.x = this.canvas.width - 40;

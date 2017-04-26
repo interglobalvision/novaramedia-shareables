@@ -36,7 +36,7 @@ class SquareShareables {
     let imageInput = this.$inputImageField;
 
     if (imageInput[0].files.length === 0) {
-      console.log('no file');
+      alert('no image!');
     }
 
     // Get text
