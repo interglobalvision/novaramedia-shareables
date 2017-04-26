@@ -80,7 +80,7 @@ class SquareShareables {
   }
 
   downloadShareable() {
-    let filename = this.toSlug( this.$postTitleField.val() ) + '-post-shareable.png';
+    let filename = 'novaramedia-square-shareable.png';
     let link = document.getElementById('download-shareable');
     link.href = this.canvas.canvas.toDataURL();
     link.download = filename;
