@@ -321,8 +321,33 @@ class ShareableCanvas {
     this.update();
   }
 
+  addCenteredText(sourceText, fontSize, addQuotes) {
+    let rawtext;
+
+    if (addQuotes) {
+      rawtext = '“' + sourceText + '”';
+    } else {
+      rawtext = sourceText;
+    }
+
+    let text = new createjs.Text(rawtext, 'bold ' + fontSize + 'px helvetica, sans-serif', '#ffffff');
+
+    text.textAlign = 'center';
+    text.textBaseline = 'middle';
+    text.lineWidth = this.canvas.width - 200;
+    text.lineHeight = fontSize * 1.3;
+
+    var bounds = text.getBounds();
+
+    text.x = this.canvas.width / 2;
+    text.y = (this.canvas.width / 2) - (bounds.height / 2);
+
+    this.stage.addChild(text);
+    this.update();
+  }
+
   addNovaraDotMedia() {
-    let tagUrl = new createjs.Text('NOVARA.MEDIA', "40px helvetica, sans-serif", "#ffffff");
+    let tagUrl = new createjs.Text('NOVARA.MEDIA', 'bold ' + '40px helvetica, sans-serif', '#ffffff');
 
     tagUrl.textAlign = 'right';
     tagUrl.textBaseline = 'hanging';

@@ -81,7 +81,7 @@ var SquareShareables = function () {
 
           _this2.canvas.addImage(loadedImage, 1, 1);
 
-          _this2.canvas.addQuote(text, fontSize, addQuotes);
+          _this2.canvas.addCenteredText(text, fontSize, addQuotes);
 
           _this2.canvas.addLogo(.18);
 

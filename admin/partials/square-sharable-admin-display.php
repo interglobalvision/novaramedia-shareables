@@ -42,8 +42,8 @@
           <label for="shareable-font-size" style="width: 100%;">Font Size</label>
         </th>
         <td>
-          <input name="shareable-font-size" type="radio" value="40" /> Basic<br />
-          <input name="shareable-font-size" type="radio" value="45" checked="checked" /> Large
+          <input name="shareable-font-size" type="radio" value="60" /> Basic<br />
+          <input name="shareable-font-size" type="radio" value="85" checked="checked" /> Large
         </td>
       </tr>
       <tr>

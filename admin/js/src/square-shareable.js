@@ -64,7 +64,7 @@ class SquareShareables {
 
         this.canvas.addImage(loadedImage, 1, 1);
 
-        this.canvas.addQuote(text, fontSize, addQuotes);
+        this.canvas.addCenteredText(text, fontSize, addQuotes);
 
         this.canvas.addLogo(.18);
 
