@@ -42,7 +42,7 @@ gulp.task('admin-javascript', function() {
   .on('error', errorNotify)
   .pipe(gulp.dest('admin/js/dist/'))
   .pipe(sourcemaps.init())
-  .pipe(uglify())
+  .pipe(uglify({mangle: false}))
   .on('error', errorNotify)
   .pipe(sourcemaps.write('sourcemaps'))
   .on('error', errorNotify)

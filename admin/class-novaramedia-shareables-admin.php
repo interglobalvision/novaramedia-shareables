@@ -96,7 +96,11 @@ class Novaramedia_Shareables_Admin {
      * class.
      */
 
-    wp_enqueue_script( $this->novaramedia_shareables, plugin_dir_url( __FILE__ ) . 'js/dist/novaramedia-shareables-admin.min.js', array( 'jquery' ), $this->version, false );
+    // EaselJS library
+    wp_enqueue_script( $this->novaramedia_shareables . '_easeljs', plugin_dir_url( __FILE__ ) . 'js/easeljs.min.js', array( 'jquery' ), $this->version );
+
+    // Class in charge of managing the canvas
+    wp_enqueue_script( $this->novaramedia_shareables . '_shareable_canvas', plugin_dir_url( __FILE__ ) . 'js/dist/shareable-canvas.min.js', array(), $this->version );
 
   }
 
@@ -114,29 +118,43 @@ class Novaramedia_Shareables_Admin {
     // Add Post Shareable page
     $post_page = add_submenu_page(
       'novaramedia-shareables',
-      'General Post Shareable',
-      'General Post Shareable',
+      'Post Shareable',
+      'Post Shareable',
       'manage_options',
       'post-sharable',
       array( $this, 'post_shareable_page' )
     );
 
     // Enqueue files for Post Page
-    add_action( 'load-' . $post_page, array( $this, 'enqueue_shareable_scripts') );
+    add_action( 'load-' . $post_page, array( $this, 'enqueue_post_scripts') );
+
+    // Add Square Shareable page
+    $square_page = add_submenu_page(
+      'novaramedia-shareables',
+      'Square Shareable',
+      'Square Shareable',
+      'manage_options',
+      'square-sharable',
+      array( $this, 'square_shareable_page' )
+    );
+
+    // Enqueue files for Post Page
+    add_action( 'load-' . $square_page, array( $this, 'enqueue_square_scripts') );
 
   }
 
-  public function enqueue_shareable_scripts() {
-    // Main Script
-
-    // EaselJS library
-    wp_enqueue_script( $this->novaramedia_shareables . '_easeljs', plugin_dir_url( __FILE__ ) . 'js/easeljs.min.js', array( 'jquery' ), $this->version );
-
-    // Class in charge of managing the canvas
-    wp_enqueue_script( $this->novaramedia_shareables . '_shareable_canvas', plugin_dir_url( __FILE__ ) . 'js/dist/shareable-canvas.min.js', array(), $this->version );
-
+  public function enqueue_post_scripts() {
     // Shareable main script
-    wp_enqueue_script( $this->novaramedia_shareables . '_shareables_script', plugin_dir_url( __FILE__ ) . 'js/dist/novaramedia-shareables.min.js', array(), $this->version );
+    wp_enqueue_script( $this->novaramedia_shareables . '_shareables_script', plugin_dir_url( __FILE__ ) . 'js/dist/post-shareable.min.js', array(), $this->version );
+    wp_localize_script( $this->novaramedia_shareables . '_shareables_script', 'ShareableVars', array(
+      'ajaxurl' => admin_url( 'admin-ajax.php' ),
+      'pluginurl' => plugin_dir_url(__FILE__) . '../'
+    ));
+  }
+
+  public function enqueue_square_scripts() {
+    // Shareable main script
+    wp_enqueue_script( $this->novaramedia_shareables . '_shareables_script', plugin_dir_url( __FILE__ ) . 'js/dist/square-shareable.min.js', array(), $this->version );
     wp_localize_script( $this->novaramedia_shareables . '_shareables_script', 'ShareableVars', array(
       'ajaxurl' => admin_url( 'admin-ajax.php' ),
       'pluginurl' => plugin_dir_url(__FILE__) . '../'
@@ -149,6 +167,10 @@ class Novaramedia_Shareables_Admin {
 
   public function post_shareable_page() {
     include_once( plugin_dir_path( __FILE__ ) . 'partials/post-sharable-admin-display.php' );
+  }
+
+  public function square_shareable_page() {
+    include_once( plugin_dir_path( __FILE__ ) . 'partials/square-sharable-admin-display.php' );
   }
 
   public function ajax_get_post_data() {

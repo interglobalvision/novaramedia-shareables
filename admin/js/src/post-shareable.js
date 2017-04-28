@@ -1,3 +1,4 @@
+
 /* jshint browser: true, devel: true, indent: 2, curly: true, eqeqeq: true, futurehostile: true, latedef: true, undef: true, unused: true, esversion: 6 */
 
 let $ = jQuery;
@@ -146,7 +147,7 @@ class Shareables {
 
       this.canvas.drawBackground();
 
-      this.canvas.addImage(image);
+      this.canvas.addImage(loadedImage, .3, .5225);
 
       this.canvas.addQuote(text, fontSize, addQuotes);
 
@@ -154,7 +155,7 @@ class Shareables {
 
       this.canvas.addUrl(link);
 
-      this.canvas.addLogo();
+      this.canvas.addLogo(.11);
     }
   }
 
