@@ -83,7 +83,7 @@ var SquareShareables = function () {
 
           _this2.canvas.addCenteredText(text, fontSize, addQuotes);
 
-          _this2.canvas.addLogo(.18);
+          _this2.canvas.addLogo(.125);
 
           _this2.canvas.addNovaraDotMedia();
         };

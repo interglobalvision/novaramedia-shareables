@@ -66,7 +66,7 @@ class SquareShareables {
 
         this.canvas.addCenteredText(text, fontSize, addQuotes);
 
-        this.canvas.addLogo(.18);
+        this.canvas.addLogo(.125);
 
         this.canvas.addNovaraDotMedia();
       }
