@@ -110,7 +110,7 @@ class Novaramedia_Shareables_Admin {
     add_menu_page(
       null,
       'Shareables',
-      'manage_options',
+      'edit_posts',
       'novaramedia-shareables',
       array( $this, 'shareables_settings_page' )
     );
