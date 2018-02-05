@@ -15,7 +15,7 @@
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
-<div class="wrap">
+<div class="wrap shareable-container">
   <h1>Square Post Shareable</h1>
 
   <table class="form-table">
@@ -48,10 +48,18 @@
       </tr>
       <tr>
         <th scope="row">
-          <label for="shareable-checkbox-boolean" style="width: 100%;">Add Quotemarks?</label>
+          <label for="shareable-checkbox-boolean" style="width: 100%;">Quote?</label>
         </th>
         <td>
           <input name="shareable-checkbox-boolean" id="shareable-checkbox-boolean" type="checkbox">
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          <label for="shareable-quote-attribution" style="width: 100%;">Quote Attribution</label>
+        </th>
+        <td>
+          <input name="shareable-quote-attribution" id="shareable-quote-attribution" type="text">
         </td>
       </tr>
     </tbody>

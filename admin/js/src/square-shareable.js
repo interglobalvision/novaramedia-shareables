@@ -45,11 +45,12 @@ class SquareShareables {
     // Get font size
     let fontSize = $('input[name=shareable-font-size]:checked').val();
 
-    // Add quotes?
-    let addQuotes = false;
+    // Quote?
+    let isQuote = $('#shareable-checkbox-boolean').is(':checked');
+    let quoteAttribution = $('#shareable-quote-attribution').val();
 
-    if ($('#shareable-checkbox-boolean').is(':checked')) {
-      addQuotes = true;
+    if (isQuote) {
+      text = '“' + text + '”';
     }
 
     let reader = new FileReader();
@@ -64,7 +65,11 @@ class SquareShareables {
 
         this.canvas.addImage(loadedImage, 1, 1);
 
-        this.canvas.addCenteredText(text, fontSize, addQuotes);
+        this.canvas.addCenteredText(text, fontSize);
+
+        if (isQuote) {
+          this.canvas.addQuoteAttribution(quoteAttribution);
+        }
 
         this.canvas.addLogo(.125);
 

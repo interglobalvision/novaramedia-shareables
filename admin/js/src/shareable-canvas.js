@@ -321,16 +321,8 @@ class ShareableCanvas {
     this.update();
   }
 
-  addCenteredText(sourceText, fontSize, addQuotes) {
-    let rawtext;
-
-    if (addQuotes) {
-      rawtext = '“' + sourceText + '”';
-    } else {
-      rawtext = sourceText;
-    }
-
-    let text = new createjs.Text(rawtext, 'bold ' + fontSize + 'px helvetica, sans-serif', '#ffffff');
+  addCenteredText(sourceText, fontSize) {
+    let text = new createjs.Text(sourceText, 'bold ' + fontSize + 'px helvetica, sans-serif', '#ffffff');
 
     text.textAlign = 'center';
     text.textBaseline = 'middle';
@@ -341,6 +333,23 @@ class ShareableCanvas {
 
     text.x = this.canvas.width / 2;
     text.y = (this.canvas.width / 2) - (bounds.height / 2);
+
+    this.stage.addChild(text);
+    this.update();
+  }
+
+  addQuoteAttribution(attribution) {
+    let text = new createjs.Text(attribution, 'bold 40px helvetica, sans-serif', '#ffffff');
+
+    text.textAlign = 'center';
+    text.textBaseline = 'middle';
+    text.lineWidth = this.canvas.width - 200;
+    text.lineHeight = 1;
+
+    var bounds = text.getBounds();
+
+    text.x = this.canvas.width / 2;
+    text.y = this.canvas.height - (14 + 90);
 
     this.stage.addChild(text);
     this.update();
