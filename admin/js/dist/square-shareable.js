@@ -62,11 +62,15 @@ var SquareShareables = function () {
       // Get font size
       var fontSize = $('input[name=shareable-font-size]:checked').val();
 
-      // Add quotes?
-      var addQuotes = false;
+      // Font
+      var isSerif = $('#shareable-checkbox-serif').is(':checked');
 
-      if ($('#shareable-checkbox-boolean').is(':checked')) {
-        addQuotes = true;
+      // Quote?
+      var isQuote = $('#shareable-checkbox-boolean').is(':checked');
+      var quoteAttribution = $('#shareable-quote-attribution').val();
+
+      if (isQuote) {
+        text = '“' + text + '”';
       }
 
       var reader = new FileReader();
@@ -81,7 +85,11 @@ var SquareShareables = function () {
 
           _this2.canvas.addImage(loadedImage, 1, 1);
 
-          _this2.canvas.addCenteredText(text, fontSize, addQuotes);
+          _this2.canvas.addCenteredText(text, fontSize, isSerif);
+
+          if (isQuote) {
+            _this2.canvas.addQuoteAttribution(quoteAttribution);
+          }
 
           _this2.canvas.addLogo(.125);
 

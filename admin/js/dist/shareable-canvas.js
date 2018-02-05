@@ -365,16 +365,14 @@ var ShareableCanvas = function () {
     }
   }, {
     key: 'addCenteredText',
-    value: function addCenteredText(sourceText, fontSize, addQuotes) {
-      var rawtext = void 0;
+    value: function addCenteredText(sourceText, fontSize, serif) {
+      var font = 'helvetica';
 
-      if (addQuotes) {
-        rawtext = '“' + sourceText + '”';
-      } else {
-        rawtext = sourceText;
+      if (serif) {
+        font = 'georgia';
       }
 
-      var text = new createjs.Text(rawtext, 'bold ' + fontSize + 'px helvetica, sans-serif', '#ffffff');
+      var text = new createjs.Text(sourceText, 'bold ' + fontSize + 'px ' + font + ', sans-serif', '#ffffff');
 
       text.textAlign = 'center';
       text.textBaseline = 'middle';
@@ -385,6 +383,24 @@ var ShareableCanvas = function () {
 
       text.x = this.canvas.width / 2;
       text.y = this.canvas.width / 2 - bounds.height / 2;
+
+      this.stage.addChild(text);
+      this.update();
+    }
+  }, {
+    key: 'addQuoteAttribution',
+    value: function addQuoteAttribution(attribution) {
+      var text = new createjs.Text(attribution, 'bold 40px helvetica, sans-serif', '#ffffff');
+
+      text.textAlign = 'center';
+      text.textBaseline = 'middle';
+      text.lineWidth = this.canvas.width - 200;
+      text.lineHeight = 1;
+
+      var bounds = text.getBounds();
+
+      text.x = this.canvas.width / 2;
+      text.y = this.canvas.height - (14 + 90);
 
       this.stage.addChild(text);
       this.update();
