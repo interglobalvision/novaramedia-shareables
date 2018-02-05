@@ -120,7 +120,7 @@ class Novaramedia_Shareables_Admin {
       'novaramedia-shareables',
       'Post Shareable',
       'Post Shareable',
-      'manage_options',
+      'edit_posts',
       'post-sharable',
       array( $this, 'post_shareable_page' )
     );
@@ -133,7 +133,7 @@ class Novaramedia_Shareables_Admin {
       'novaramedia-shareables',
       'Square Shareable',
       'Square Shareable',
-      'manage_options',
+      'edit_posts',
       'square-sharable',
       array( $this, 'square_shareable_page' )
     );
