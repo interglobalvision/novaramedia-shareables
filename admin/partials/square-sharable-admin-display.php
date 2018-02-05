@@ -43,7 +43,16 @@
         </th>
         <td>
           <input name="shareable-font-size" type="radio" value="60" /> Basic<br />
+          <input name="shareable-font-size" type="radio" value="70" /> Medium<br />
           <input name="shareable-font-size" type="radio" value="85" checked="checked" /> Large
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          <label for="shareable-checkbox-serif" style="width: 100%;">Serif Text?</label>
+        </th>
+        <td>
+          <input name="shareable-checkbox-serif" id="shareable-checkbox-serif" type="checkbox">
         </td>
       </tr>
       <tr>

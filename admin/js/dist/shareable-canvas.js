@@ -365,8 +365,14 @@ var ShareableCanvas = function () {
     }
   }, {
     key: 'addCenteredText',
-    value: function addCenteredText(sourceText, fontSize) {
-      var text = new createjs.Text(sourceText, 'bold ' + fontSize + 'px helvetica, sans-serif', '#ffffff');
+    value: function addCenteredText(sourceText, fontSize, serif) {
+      var font = 'helvetica';
+
+      if (serif) {
+        font = 'georgia';
+      }
+
+      var text = new createjs.Text(sourceText, 'bold ' + fontSize + 'px ' + font + ', sans-serif', '#ffffff');
 
       text.textAlign = 'center';
       text.textBaseline = 'middle';

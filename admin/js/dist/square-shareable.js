@@ -62,6 +62,9 @@ var SquareShareables = function () {
       // Get font size
       var fontSize = $('input[name=shareable-font-size]:checked').val();
 
+      // Font
+      var isSerif = $('#shareable-checkbox-serif').is(':checked');
+
       // Quote?
       var isQuote = $('#shareable-checkbox-boolean').is(':checked');
       var quoteAttribution = $('#shareable-quote-attribution').val();
@@ -82,7 +85,7 @@ var SquareShareables = function () {
 
           _this2.canvas.addImage(loadedImage, 1, 1);
 
-          _this2.canvas.addCenteredText(text, fontSize);
+          _this2.canvas.addCenteredText(text, fontSize, isSerif);
 
           if (isQuote) {
             _this2.canvas.addQuoteAttribution(quoteAttribution);

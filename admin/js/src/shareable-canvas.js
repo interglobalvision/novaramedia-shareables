@@ -321,8 +321,14 @@ class ShareableCanvas {
     this.update();
   }
 
-  addCenteredText(sourceText, fontSize) {
-    let text = new createjs.Text(sourceText, 'bold ' + fontSize + 'px helvetica, sans-serif', '#ffffff');
+  addCenteredText(sourceText, fontSize, serif) {
+    let font = 'helvetica';
+
+    if (serif) {
+      font = 'georgia'
+    }
+
+    let text = new createjs.Text(sourceText, 'bold ' + fontSize + 'px ' + font + ', sans-serif', '#ffffff');
 
     text.textAlign = 'center';
     text.textBaseline = 'middle';
