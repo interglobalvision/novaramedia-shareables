@@ -388,6 +388,43 @@ var ShareableCanvas = function () {
       this.update();
     }
   }, {
+    key: 'addTopText',
+    value: function addTopText(sourceText) {
+      var topLeftText = new createjs.Text(sourceText, 'bold ' + '40px helvetica, sans-serif', '#ffffff');
+
+      topLeftText.textAlign = 'left';
+      topLeftText.textBaseline = 'hanging';
+
+      var bounds = topLeftText.getBounds();
+
+      topLeftText.lineWidth = bounds.width;
+
+      topLeftText.x = 40;
+      topLeftText.y = 40;
+
+      this.stage.addChild(topLeftText);
+      this.update();
+    }
+  }, {
+    key: 'addFooterText',
+    value: function addFooterText(sourceText) {
+      var fontSize = 40;
+      var footertext = new createjs.Text(sourceText, 'bold ' + fontSize + 'px helvetica, sans-serif', '#ffffff');
+
+      footertext.textAlign = 'left';
+      footertext.textBaseline = 'middle';
+      footertext.lineWidth = this.canvas.width - 225 - 200;
+      footertext.lineHeight = fontSize * 1.3;
+
+      var bounds = footertext.getBounds();
+
+      footertext.x = 225;
+      footertext.y = this.canvas.height - 23 - bounds.height;
+
+      this.stage.addChild(footertext);
+      this.update();
+    }
+  }, {
     key: 'addQuoteAttribution',
     value: function addQuoteAttribution(attribution) {
       var text = new createjs.Text(attribution, 'bold 40px helvetica, sans-serif', '#ffffff');
