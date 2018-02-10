@@ -62,6 +62,9 @@ var SquareShareables = function () {
       // Get font size
       var fontSize = $('input[name=shareable-font-size]:checked').val();
 
+      // #NovaraFM text
+      var isNovaraFM = $('#shareable-checkbox-fm').is(':checked');
+
       // Font
       var isSerif = $('#shareable-checkbox-serif').is(':checked');
 
@@ -86,6 +89,11 @@ var SquareShareables = function () {
           _this2.canvas.addImage(loadedImage, 1, 1);
 
           _this2.canvas.addCenteredText(text, fontSize, isSerif);
+
+          if (isNovaraFM) {
+            _this2.canvas.addTopText('#NovaraFM');
+            _this2.canvas.addFooterText('Friday 1pm\nResonance 104.4 FM');
+          }
 
           if (isQuote) {
             _this2.canvas.addQuoteAttribution(quoteAttribution);

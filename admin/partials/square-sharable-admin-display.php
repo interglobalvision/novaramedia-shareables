@@ -49,6 +49,14 @@
       </tr>
       <tr>
         <th scope="row">
+          <label for="shareable-checkbox-fm" style="width: 100%;">#NovaraFM Text?</label>
+        </th>
+        <td>
+          <input name="shareable-checkbox-fm" id="shareable-checkbox-fm" type="checkbox">
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
           <label for="shareable-checkbox-serif" style="width: 100%;">Serif Text?</label>
         </th>
         <td>
