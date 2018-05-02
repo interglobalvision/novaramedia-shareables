@@ -18,8 +18,30 @@
 <div class="wrap shareable-container">
   <h1>Square Post Shareable</h1>
 
+  <p>This generator is a multipurpose square image generator. It can be used to create NM style branded images quickly and easily. It requires an image and some basic text.</p>
+
+  <h3>How to use this generator</h3>
+
+  <ul>
+    <li>Like all images used for NM images should be good quality and not contain any watermarks.</li>
+    <li>In general images should be photographs either in full colour or monochrome</li>
+    <li>Text should follow the NM styleguide (<a href="http://wiki.novaramedia.com/index.php?title=Articles#Style_guide">http://wiki.novaramedia.com/index.php?title=Articles#Style_guide</a>)</li>
+    <li>Text should never end with a single word on the last line. In this case use the return key to manually format the text so there are at least 2 words on the last line</li>
+  </ul>
+
+  <h4>Quote image type</h4>
+
+  <ul>
+    <li>Where possible an attribution should be added with the `Quote Attribution` parameter</li>
+    <li>Quote marks are options and toggled with the `Quote?` checkbox</li>
+  </ul>
+
+  <h4>#NovaraFM image type</h4>
+
+  <p>The `#NovaraFM Text?` option adds default text relating to #NovaraFM on Resonance FM</p>
+
   <table class="form-table">
-  <h3>Input data</h3>
+  <h2>Input data</h2>
     <tbody>
       <tr>
         <th scope="row">
